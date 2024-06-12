@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom"
 const Sidebar = () => {
     const navigate = useNavigate()
 
-    const [selected, setSelected] = useState("")
+    const [selected, setSelected] = useState("By Region")
     console.log(selected)
 
     const [expanded, setExpaned] = useState(true)

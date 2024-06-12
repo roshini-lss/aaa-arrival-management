@@ -22,10 +22,11 @@ function App() {
             >
                 {location.pathname !== "/login" && <Sidebar />}
                 <Routes>
-                    <Route path="/" element={<MainDash />} />
+                    {/* <Route path="/" element={<MainDash />} /> */}
+                    <Route index element={<Region />} />
+                    <Route path="/by-region" element={<Region />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/by-problem-code" element={<ProblemCode />} />
-                    <Route path="/by-region" element={<Region />} />
                     <Route path="/by-region/:val" element={<ProblemCode />} />
                 </Routes>
             </div>
