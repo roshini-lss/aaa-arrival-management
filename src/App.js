@@ -5,34 +5,34 @@ import ProblemCode from "./components/MainDash/ProblemCode"
 import Sidebar from "./components/Sidebar"
 import Region from "./components/MainDash/Region"
 import Login from "./components/Login/Login"
-import { SelectedContext } from "./contexts/SelectedContext"
-
+// import Order from "./components/Orders/Order"
+// import OrderDesc from "./components/Orders/OrderDesc"
 function App() {
     const location = useLocation()
-    const gridStyle = {
-        gridTemplateColumns: "auto auto",
-    }
-
+    console.log(location.pathname)
+    console.log(location.pathname !== "/login" && location.pathname !== "/")
     return (
         <div className="App">
             <div
                 className={
-                    location.pathname !== "/login" ? "AppGlass" : "AppGlassLog"
+                    location.pathname === "/login" || location.pathname === "/"
+                        ? "AppGlassLog"
+                        : "AppGlass"
                 }
-                // style={location.pathname !== "/login" && gridStyle}
             >
-                {location.pathname !== "/login" && <Sidebar />}
+                {location.pathname !== "/login" &&
+                    location.pathname !== "/" && <Sidebar />}
                 <Routes>
-                    {/* <Route path="/" element={<MainDash />} /> */}
-                    <Route index element={<Region />} />
+                    <Route index element={<Login />} />
                     <Route path="/by-region" element={<Region />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/by-problem-code" element={<ProblemCode />} />
                     <Route path="/by-region/:val" element={<ProblemCode />} />
+                    {/* <Route path="/call-management-orders" element={<Order />} /> */}
+                    {/* <Route path="/Desc" element={<OrderDesc />} /> */}
                 </Routes>
             </div>
         </div>
     )
 }
-
 export default App

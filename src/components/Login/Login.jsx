@@ -1,102 +1,83 @@
-import React, { useState } from "react"
+import React from "react"
 import "./Login.css"
 import { CgProfile } from "react-icons/cg"
+import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
     const techAdminUsername = "TechAdmin"
     const techAdminPassword = "TechAdmin#1"
-    const [dataForm, setDataForm] = useState({
-        username: "",
-        password: "",
-    })
-    const [errors, setErrors] = useState({
-        username: "",
-        password: "",
-    })
+    const callManagementUsername = "CallMgmt"
+    const callManagementPassword = "CallMgmt#1"
 
-    const handleChange = (e) => {
-        // validate()
-        if (!validate()) {
-        }
-        setDataForm({ ...dataForm, [e.target.name]: e.target.value })
-    }
+    const navigate = useNavigate()
 
-    const validate = () => {
-        let isValid = true
-        const newErrors = { username: "", password: "" }
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm()
 
-        // Username validation
-        if (!dataForm.username) {
-            newErrors.username = "Username is required"
-            isValid = false
-        }
-
-        // Password validation
-        if (!dataForm.password) {
-            newErrors.password = "Password is required"
-            isValid = false
-        } else if (dataForm.password.length < 8) {
-            newErrors.password = "Password must be at least 8 characters"
-            isValid = false
-        } else if (!/[A-Z]/.test(dataForm.password)) {
-            newErrors.password =
-                "Password must contain at least one uppercase letter"
-            isValid = false
-        } else if (!/[a-z]/.test(dataForm.password)) {
-            newErrors.password =
-                "Password must contain at least one lowercase letter"
-            isValid = false
-        } else if (!/[0-9]/.test(dataForm.password)) {
-            newErrors.password = "Password must contain at least one digit"
-            isValid = false
-        }
-
-        setErrors(newErrors)
-        return isValid
-    }
-    console.log(dataForm)
-
-    const onsubmit = (e) => {
-        e.preventDefault()
+    const onSubmit = (data) => {
         if (
-            techAdminUsername === dataForm.username &&
-            techAdminPassword === dataForm.password
+            techAdminUsername === data.username &&
+            techAdminPassword === data.password
         ) {
-            console.log(true)
-        } else {
-            console.log(false)
+        } else if (
+            callManagementUsername === data.username &&
+            callManagementPassword === data.password
+        ) {
         }
     }
 
     return (
         <div className="container">
             <div className="login-card-container">
-                <form className="login-form" onClick={onsubmit}>
+                <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
                     <div className="login-icon">
                         <CgProfile size={80} />
                     </div>
-                    {/* <div className="login-title">LOGIN</div> */}
                     <div>
                         <input
                             className="login-input"
                             type="text"
-                            value={dataForm.username}
                             name="username"
                             placeholder="Username..."
-                            onChange={handleChange}
-                        ></input>
-                        <p className="error-msg">{errors.username}</p>
+                            {...register("username", {
+                                required: "Username is required",
+                            })}
+                        />
+                        <p className="error-msg">{errors.username?.message}</p>
                     </div>
                     <div>
                         <input
                             className="login-input"
                             type="password"
-                            value={dataForm.password}
                             name="password"
                             placeholder="Password..."
-                            onChange={handleChange}
-                        ></input>
-                        <p className="error-msg">{errors.password}</p>
+                            {...register("password", {
+                                required: "Password is required",
+                                minLength: {
+                                    value: 8,
+                                    message:
+                                        "Password must be at least 8 characters",
+                                },
+                                validate: {
+                                    uppercase: (value) =>
+                                        /[A-Z]/.test(value) ||
+                                        "Atleast one uppercase letter required",
+                                    lowercase: (value) =>
+                                        /[a-z]/.test(value) ||
+                                        "Password must contain at least one lowercase letter",
+                                    digit: (value) =>
+                                        /[0-9]/.test(value) ||
+                                        "Password must contain at least one digit",
+                                },
+                            })}
+                        />
+                        <p className="error-msg">
+                            {errors.password ? errors.password.message : ""}
+                        </p>
                     </div>
                     <button className="login-btn pointer" type="submit">
                         Login

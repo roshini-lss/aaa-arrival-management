@@ -86,7 +86,10 @@ const Cards = ({ card }) => {
                 />
                 <div className="category-title">{card?.title}</div>
             </div>
-            <div className="data-fields" onClick={() => handleShow(card.title)}>
+            <div
+                className="data-fields pointer"
+                onClick={() => handleShow(card.title)}
+            >
                 <div className="total-wo">
                     Total number of WOs: {card?.totalWO || 0}
                 </div>
