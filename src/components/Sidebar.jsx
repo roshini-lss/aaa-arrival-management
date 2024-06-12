@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import "./Sidebar.css"
 import Logo from "../imgs/logo.png"
 import { UilSignOutAlt } from "@iconscout/react-unicons"
@@ -10,15 +10,12 @@ import {
 import { UilBars } from "@iconscout/react-unicons"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-
+import { SelectedContext } from "../contexts/SelectedContext"
 const Sidebar = () => {
     const navigate = useNavigate()
-
-    const [selected, setSelected] = useState("By Region")
+    const { selected, setSelected } = useContext(SelectedContext)
     console.log(selected)
-
     const [expanded, setExpaned] = useState(true)
-
     const sidebarVariants = {
         true: {
             left: "0",
@@ -28,7 +25,6 @@ const Sidebar = () => {
         },
     }
     console.log(window.innerWidth)
-
     const handleSelection = (path) => {
         setSelected(path)
         if (path === "By Problem code") {
@@ -39,7 +35,6 @@ const Sidebar = () => {
         }
         console.log({ path })
     }
-
     return (
         <>
             <div
@@ -61,7 +56,6 @@ const Sidebar = () => {
                         A<span>A</span>A
                     </span>
                 </div>
-
                 <div className="menu">
                     {/* {SidebarData.map((item, index) => {
                         return (
@@ -111,5 +105,4 @@ const Sidebar = () => {
         </>
     )
 }
-
 export default Sidebar

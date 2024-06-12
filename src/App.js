@@ -5,6 +5,7 @@ import ProblemCode from "./components/MainDash/ProblemCode"
 import Sidebar from "./components/Sidebar"
 import Region from "./components/MainDash/Region"
 import Login from "./components/Login/Login"
+import { SelectedContext } from "./contexts/SelectedContext"
 
 function App() {
     const location = useLocation()

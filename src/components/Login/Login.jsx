@@ -3,8 +3,8 @@ import "./Login.css"
 import { CgProfile } from "react-icons/cg"
 
 const Login = () => {
-    const username = "naga"
-    const password = "Nagarajan8_#8"
+    const techAdminUsername = "TechAdmin"
+    const techAdminPassword = "TechAdmin#1"
     const [dataForm, setDataForm] = useState({
         username: "",
         password: "",
@@ -58,7 +58,10 @@ const Login = () => {
 
     const onsubmit = (e) => {
         e.preventDefault()
-        if (username === dataForm.username && password === dataForm.password) {
+        if (
+            techAdminUsername === dataForm.username &&
+            techAdminPassword === dataForm.password
+        ) {
             console.log(true)
         } else {
             console.log(false)
