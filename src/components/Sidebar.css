@@ -40,9 +40,11 @@
 }
 
 .sidebar-title {
-    margin-bottom: 1.5rem;
-    font-size: 1.25rem;
-    font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-left: 2rem;
+  color: #8c5a8f;
 }
 
 .menuItem {
