@@ -1,0 +1,36 @@
+.MainDash{
+    /* padding-top: 1rem; */
+    display: flex;
+    /* flex-direction: column; */
+    /* justify-content: space-evenly; */
+    flex-wrap: wrap;
+    position: relative;
+    left: 98px;
+    width: 59rem;
+    bottom: 16rem;
+    /* border: 1px solid; */
+    top: 4rem;
+    height: 44rem;
+}
+
+.total-number-wo {
+    position: relative;
+    left: 7rem;
+    top: 3rem;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 1200px) {
+    .MainDash{
+        justify-content:flex-start;
+        margin-top: 2rem;
+    }
+}
+
+@media screen and (max-width: 768px)
+{
+    .MainDash{
+        align-items: center;
+    }
+}
