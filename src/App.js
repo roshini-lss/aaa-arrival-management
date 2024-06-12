@@ -5,8 +5,8 @@ import ProblemCode from "./components/MainDash/ProblemCode"
 import Sidebar from "./components/Sidebar"
 import Region from "./components/MainDash/Region"
 import Login from "./components/Login/Login"
-// import Order from "./components/Orders/Order"
-// import OrderDesc from "./components/Orders/OrderDesc"
+import Order from "./components/Orders/WorkOrder"
+import OrderDesc from "./components/Orders/WorkOrderDesc"
 function App() {
     const location = useLocation()
     console.log(location.pathname)
@@ -28,7 +28,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/by-problem-code" element={<ProblemCode />} />
                     <Route path="/by-region/:val" element={<ProblemCode />} />
-                    {/* <Route path="/call-management-orders" element={<Order />} /> */}
+                    <Route path="/call-management-orders" element={<Order />} />
                     <Route path="/Desc" element={<OrderDesc />} />
                 </Routes>
             </div>

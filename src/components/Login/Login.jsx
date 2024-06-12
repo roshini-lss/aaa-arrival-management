@@ -23,10 +23,12 @@ const Login = () => {
             techAdminUsername === data.username &&
             techAdminPassword === data.password
         ) {
+            navigate("/by-region")
         } else if (
             callManagementUsername === data.username &&
             callManagementPassword === data.password
         ) {
+            navigate("/call-management-orders")
         }
     }
 

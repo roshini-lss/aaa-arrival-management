@@ -34,6 +34,9 @@ const Sidebar = () => {
             navigate("/by-region")
         }
         console.log({ path })
+        if(path === "PTA Health Check") {
+          navigate("/call-management-orders")
+        }
     }
     return (
         <>

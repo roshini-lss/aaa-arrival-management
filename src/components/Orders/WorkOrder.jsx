@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./WorkOrders.css";
 import OrderDesc from "./WorkOrderDesc";
 import allData from "../../Data/all-data.json";
+import { SelectedContext } from "../../contexts/SelectedContext";
 
 const Order = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -19,6 +20,11 @@ const Order = () => {
       setError("Order number must be valid!");
     }
   };
+
+  const { setSelected } = useContext(SelectedContext)
+    useEffect(() => {
+        setSelected("PTA Health Check")
+    }, [])
 
   const handleFilterChange = () => {
     if (orderNo) {
