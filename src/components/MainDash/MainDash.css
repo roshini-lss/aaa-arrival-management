@@ -21,6 +21,26 @@
     font-weight: bold;
 }
 
+.main-view-title{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left: 7rem;
+    top: 3rem;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.view-title{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left: 7rem;
+    top: 3rem;
+    font-size: 21px;
+    font-weight: bold;
+}
+
 @media screen and (max-width: 1200px) {
     .MainDash{
         justify-content:flex-start;

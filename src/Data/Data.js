@@ -238,6 +238,7 @@ export const cardsData = [
 export const mapDetails = [
     {
         title: "CA",
+        color: "green",
         img: caImage,
         totalWO: CAData.totalNumberOfOrders,
         assingedPTA: CAData.assingedPTA,
@@ -246,6 +247,7 @@ export const mapDetails = [
     },
     {
         title: "NV",
+        color: "yellow",
         img: nvImage,
         totalWO: NVData.totalNumberOfOrders,
         assingedPTA: NVData.assingedPTA,
@@ -254,6 +256,7 @@ export const mapDetails = [
     },
     {
         title: "AK",
+        color: "green",
         img: akImage,
         totalWO: AKData.totalNumberOfOrders,
         assingedPTA: AKData.assingedPTA,
@@ -262,6 +265,7 @@ export const mapDetails = [
     },
     {
         title: "UT",
+        color: "green",
         img: utImage,
         totalWO: UTData.totalNumberOfOrders,
         assingedPTA: UTData.assingedPTA,
@@ -270,6 +274,7 @@ export const mapDetails = [
     },
     {
         title: "AZ",
+        color: "red",
         img: azImage,
         totalWO: AZData.totalNumberOfOrders,
         assingedPTA: AZData.assingedPTA,
@@ -278,6 +283,7 @@ export const mapDetails = [
     },
     {
         title: "WY",
+        color: "red",
         img: wyImage,
         totalWO: WYData.totalNumberOfOrders,
         assingedPTA: WYData.assingedPTA,
@@ -286,6 +292,7 @@ export const mapDetails = [
     },
     {
         title: "MT",
+        color: "green",
         img: mtImage,
         totalWO: MTData.totalNumberOfOrders,
         assingedPTA: MTData.assingedPTA,
