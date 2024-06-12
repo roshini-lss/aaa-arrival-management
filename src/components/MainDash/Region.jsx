@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./MainDash.css";
 import { mapDetails, regionParams } from "../../Data/Data";
 import Cards from "../Cards/Cards";
 import allData from "../../Data/all-data.json"
+import { SelectedContext } from "../../contexts/SelectedContext";
 const Region = () => {
+  const { setSelected } = useContext
+  (SelectedContext)
+  useEffect(() => {
+      setSelected("By Region")
+  }, [])
+
   return (
     <div>
       <div className="view-title">View by - By Region</div>
