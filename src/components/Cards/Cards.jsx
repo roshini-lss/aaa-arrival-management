@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from "react"
-import "./Cards.css"
-import { useNavigate } from "react-router-dom"
-import { useParams } from "react-router-dom"
-import { batteryJump, regionParams } from "../../Data/Data"
-import Modal from "react-bootstrap/Modal"
-import Button from "react-bootstrap/Button"
-import allData from "../../Data/all-data.json"
+import React, { useContext, useEffect, useState } from "react";
+import "./Cards.css";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { batteryJump, regionParams } from "../../Data/Data";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import allData from "../../Data/all-data.json";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 const Cards = ({ card }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [workOrders, setWorkOrders] = useState([])
@@ -24,16 +25,29 @@ const Cards = ({ card }) => {
         "Lockout",
     ]
 
-    //  window.location.reload()
-    useEffect(() => {
-        regionParams(region)
-        //  debugger
-        //   const batteryJump = JSON.parse(localStorage.getItem('batteryJump')) || {};
-        //   console.log(batteryJump)
-        //   // setData((prev) => {[...prev, ...{totalWO:batteryJump.totalNumberOfOrders}]})
-        //   // window.location.reload()
-        //   // localStorage.removeItem('batteryJump');
-    }, [cardVal])
+  console.log(card);
+  const [expandedRows, setExpandedRows] = useState([]);
+  const [toggle, setToggle] = useState(false);
+
+  const toggleRow = (index) => {
+    setToggle(!toggle)
+    if (expandedRows.includes(index)) {
+      setExpandedRows(expandedRows.filter((row) => row !== index));
+    } else {
+      setExpandedRows([...expandedRows, index]);
+    }
+  };
+
+  //  window.location.reload()
+  useEffect(() => {
+    regionParams(region);
+    //  debugger
+    //   const batteryJump = JSON.parse(localStorage.getItem('batteryJump')) || {};
+    //   console.log(batteryJump)
+    //   // setData((prev) => {[...prev, ...{totalWO:batteryJump.totalNumberOfOrders}]})
+    //   // window.location.reload()
+    //   // localStorage.removeItem('batteryJump');
+  }, [cardVal]);
 
     // useEffect(() => {
     //   listData.map((val) => {
@@ -157,30 +171,5 @@ const Cards = ({ card }) => {
             ) : null}
         </div>
     )
-    //   return(
-    //    <div className="Cards">
-    //         <div className="parentContainer" key={id}>
-    //           {card?.title}
-    //         </div>
-    //         <div className="card-img">
-    //           <img src={card?.img} alt="img" className="card-img"></img>
-    //         </div>
-    //   </div>
-    //   )
-    //  })
-    // <div className="Cards">
-    //   {/* <div className="parentContainer">
-    //       <div>Card</div>
-    //   </div> */}
-    //   {cardsData.map((card, id) => {
-    //     return (
-    //       <div className="parentContainer" key={id}>
-    //         {card?.title}
-    //       </div>
-    //     );
-    //   })}
-    // </div>
-    // );
-}
-
+  }
 export default Cards

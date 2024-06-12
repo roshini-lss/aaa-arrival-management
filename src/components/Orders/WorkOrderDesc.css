@@ -1,0 +1,71 @@
+.desc-container {
+  width: 60%;
+  margin: auto;
+  border-radius: 20px;
+  padding: 30px;
+  background-color: #fff;
+}
+
+.desc-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.desc-card {
+  padding: 10px;
+}
+
+.desc-sub {
+  font-size: 1.25rem;
+}
+.desc-col {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.desc-col h3 {
+  margin: 0;
+}
+
+.desc-col h6 {
+  margin: 0;
+}
+
+.other-details {
+  margin-top: 20px;
+}
+
+.other-details > div {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.desc-btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #fff;
+  margin-top: 10px;
+  background-color: #ffc0cb;
+  border: none;
+  margin-left: 50%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.desc-btn.pointer {
+  cursor: pointer;
+}
+
+.desc-btn:hover {
+  background-color: #ea57a5;
+}

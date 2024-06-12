@@ -29,7 +29,7 @@ function App() {
                     <Route path="/by-problem-code" element={<ProblemCode />} />
                     <Route path="/by-region/:val" element={<ProblemCode />} />
                     {/* <Route path="/call-management-orders" element={<Order />} /> */}
-                    {/* <Route path="/Desc" element={<OrderDesc />} /> */}
+                    <Route path="/Desc" element={<OrderDesc />} />
                 </Routes>
             </div>
         </div>
