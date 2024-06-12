@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import "./MainDash.css"
 import Cards from "../Cards/Cards"
 import batteryjump from "../../imgs//battery-jump.jpeg"
@@ -25,6 +25,7 @@ const ProblemCode = () => {
         "Lockout",
     ]
     const region = useParams()
+    const location = useLocation()
     const regions = region?.val?.toUpperCase()
     const batteryJump = (service) => {
         const details = {
@@ -151,12 +152,13 @@ const ProblemCode = () => {
                 serviceData.Lockout.assingedPTA,
         },
     ]
+    const style = location.pathname === '/by-region' ? { left: '20px' } : { left: 'unset' };
     return (
         <div className="MainDash-Component">
             <div className="main-view-title">
                 View by - Problem Code Based Problem
             </div>
-            <div className="MainDash">
+            <div className="MainDash" style={style}>
                 {cardsData.map((card, id) => {
                     return <Cards card={card} key={id} />
                 })}

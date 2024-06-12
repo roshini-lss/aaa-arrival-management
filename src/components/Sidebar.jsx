@@ -41,6 +41,10 @@ const Sidebar = () => {
       navigate("/call-management-orders");
     }
   };
+
+  const logout = () => {
+    navigate("/login")
+  }
   return (
     <>
       <div
@@ -118,7 +122,7 @@ const Sidebar = () => {
           </div>
         )}
         {/* signoutIcon */}
-        <div className="menuItem">{/* <UilSignOutAlt /> */}</div>
+        <div className="menuItem logout" onClick={logout}><UilSignOutAlt /> Logout</div>
       </motion.div>
     </>
   );

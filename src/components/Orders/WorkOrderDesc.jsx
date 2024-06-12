@@ -3,6 +3,9 @@ import "./WorkOrderDesc.css";
 
 const OrderDesc = ({ workOrders }) => {
   const item = workOrders[0];
+  const viewMap = () => {
+    window.open('/view-map', '_blank');
+  }
 
   return (
     <>
@@ -34,7 +37,9 @@ const OrderDesc = ({ workOrders }) => {
               <h6>{item.pta_truck_predicted}</h6>
             </div>
           </div>
-          <button className="desc-btn">View</button>
+          <div className="view-button">
+          <button className="view-btn" onClick={viewMap}>View</button>
+          </div>
           <hr></hr>
           <div className="other-details">
             <div>01/02/2024, there had a good condition</div>

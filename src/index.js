@@ -4,11 +4,14 @@ import { BrowserRouter as Router } from "react-router-dom"
 import App from "./App"
 import "bootstrap/dist/css/bootstrap.css"
 import { SelectedProvider } from "./contexts/SelectedContext"
+import { ChakraProvider, theme } from "@chakra-ui/react";
 
 ReactDOM.render(
     <Router>
         <SelectedProvider>
+        <ChakraProvider theme={theme}>
             <App />
+        </ChakraProvider>
         </SelectedProvider>
     </Router>,
     document.getElementById("root")

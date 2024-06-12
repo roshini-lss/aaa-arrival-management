@@ -126,7 +126,7 @@ const Cards = ({ card }) => {
                         size="lg"
                     >
                         <Modal.Header closeButton>
-                            <Modal.Title>Modal heading</Modal.Title>
+                            <Modal.Title>Details</Modal.Title>
                         </Modal.Header>
                         <Modal.Body
                             style={{ maxHeight: "400px", overflowY: "auto" }}

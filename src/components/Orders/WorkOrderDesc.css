@@ -69,3 +69,22 @@ hr {
 .desc-btn:hover {
   background-color: #ea57a5;
 }
+
+
+.view-button {
+  /* border: 1px solid; */
+  display: flex;
+  justify-content: center;
+}
+
+
+button.view-btn {
+  /* border: 1px solid; */
+  border-radius: 8px;
+  background: pink;
+  padding: 6px 19px;
+  box-shadow: 0px 0px 2px #aaa;
+  color: black;
+  font-weight: bolder;
+  /* width: 85px; */
+}

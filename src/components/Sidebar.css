@@ -7,6 +7,15 @@
     width: 16rem;
 }
 
+.menuItem.logout {
+  /* border: 1px solid; */
+  margin-top: 5rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: large;
+  color: #86148d;
+}
+
 .bars {
     display: none;
 }

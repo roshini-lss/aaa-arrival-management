@@ -11,7 +11,6 @@ const Order = () => {
   const [workOrders, setWorkOrders] = useState([]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     if (validateOrderNo(orderNo)) {
       setIsSubmitted(true);
       setError("");
@@ -53,16 +52,17 @@ const Order = () => {
       {!isSubmitted ? (
         <div className="order-main">
           <div className={`order-container ${isSubmitted ? "submitted" : ""}`}>
-            <div className="order-title">Enter Work Order:</div>
+            {/* <div className="order-title">Enter Work Order:</div> */}
             <input
               className="order-input"
               type="number"
               name="workorder"
-              placeholder="Work Order No..."
+              placeholder="Type Work Order Number..."
               onChange={handleChange}
+              onKeyDown={(event) => event.key === 'Enter' && handleSubmit()}
             ></input>
             {error && <div className="order-error">{error}</div>}
-            <div className="">
+            {/* <div className="">
               <button
                 className="order-btn pointer"
                 type="submit"
@@ -70,7 +70,7 @@ const Order = () => {
               >
                 Enter
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (
@@ -80,14 +80,16 @@ const Order = () => {
           }`}
         >
           <div className="order-search">
-            <div>
+            <div className="input-container">
               <input
                 type="search"
                 className="order-input"
+                placeholder="Type Work Order Number..."
                 onChange={handleChange}
+                onKeyDown={(event) => event.key === 'Enter' && handleSubmit()}
               ></input>
             </div>
-            <div>
+            {/* <div>
               <button
                 className="order-btn pointer"
                 type="submit"
@@ -95,7 +97,7 @@ const Order = () => {
               >
                 Enter
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       )}

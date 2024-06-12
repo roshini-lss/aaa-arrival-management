@@ -1,7 +1,7 @@
 .order-component {
   display: flex;
   flex-direction: column;
-  margin-left: 10%;
+  /* margin-left: 10%; */
   margin-top: 5%;
   padding-bottom: 50px;
 }
@@ -21,8 +21,9 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 500px;
-  width: 100%;
+  /* width: 100%; */
   transition: transform 0.5s ease, opacity 0.5s ease;
+  max-width: 71%;
 }
 
 .order-container.submitted {
@@ -55,9 +56,9 @@
 
 .order-search {
   display: flex;
-  width: 100%;
+  width: 80%;
   padding-left: 20%;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 
 .order-btn {
@@ -89,4 +90,13 @@
   align-self: flex-start;
   margin-left: 10px;
   padding-bottom: 20px;
+}
+
+input.order-input {
+  width: 35rem;
+}
+
+.input-container {
+  /* border: 1px solid; */
+  width: 100%;
 }
