@@ -15,6 +15,7 @@
 }
 
 .total-number-wo {
+    font-family: Vollkorn;
     position: relative;
     left: 7rem;
     top: 3rem;
@@ -23,6 +24,7 @@
 }
 
 .main-view-title{
+    font-family: Vollkorn;
     display: flex;
     justify-content: center;
     position: relative;
@@ -34,6 +36,7 @@
 }
 
 .view-title{
+    font-family: Vollkorn;
     display: flex;
     justify-content: center;
     position: relative;

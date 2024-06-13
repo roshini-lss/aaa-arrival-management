@@ -156,7 +156,7 @@ const ProblemCode = () => {
     return (
         <div className="MainDash-Component">
             <div className="main-view-title">
-                View by - Problem Code Based Problem
+                VIEW BY - PROBLEM CODE  
             </div>
             <div className="MainDash" style={style}>
                 {cardsData.map((card, id) => {

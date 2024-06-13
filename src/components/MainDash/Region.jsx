@@ -13,7 +13,7 @@ const Region = () => {
 
   return (
     <div>
-      <div className="view-title">View by - By Region</div>
+      <div className="view-title">VIEW BY - REGION</div>
       <div className="total-number-wo">Total Number of WOs: {allData.length}</div>
       <div className="MainDash">
         {mapDetails.map((card, id) => {
