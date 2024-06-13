@@ -1,10 +1,13 @@
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding-top: 4rem;
-    transition: all 300ms ease;
-    width: 16rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 4rem;
+  transition: all 300ms ease;
+  width: 16rem;
+  /* border: 1px solid; */
+  background: #a7a7eb;
+  border-radius: 30px;
 }
 
 .menuItem.logout {
@@ -13,7 +16,7 @@
   cursor: pointer;
   font-weight: bold;
   font-size: large;
-  color: #86148d;
+  color: white;
 }
 
 .bars {
@@ -31,7 +34,7 @@
     height: 4%;
 }
 .logo > span > span {
-    color: var(--pink);
+    color: #7c7cff;
 }
 
 .logo > img {
@@ -53,7 +56,7 @@
   font-size: 1.25rem;
   font-weight: bold;
   margin-left: 2rem;
-  color: #8c5a8f;
+  color: white;
 }
 
 .menuItem {
@@ -81,7 +84,7 @@
     content: "";
     width: 8px;
     height: 100%;
-    background: var(--pink);
+    background: #7c7cff;
     margin-right: calc(1rem - 8px);
 }
 
