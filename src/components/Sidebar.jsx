@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./Sidebar.css";
-import Logo from "../imgs/logo.png";
+import Logo from "../imgs/aaa-logo.png";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 import {
   SideBarDataCMAltered,
@@ -62,9 +62,9 @@ const Sidebar = () => {
         {/* logo */}
         <div className="logo">
           <img src={Logo} alt="logo" />
-          <span>
+          {/* <span>
             A<span>A</span>A
-          </span>
+          </span> */}
         </div>
         {location.pathname !== "/call-management-orders" ? (
           <div className="menu">
