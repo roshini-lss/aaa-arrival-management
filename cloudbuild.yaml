@@ -29,3 +29,5 @@ steps:
   - $_MIN_INSTANCES
   - '--max-instances'
   - $_MAX_INSTANCES
+  - '--set-env-vars'
+  - $_SET_ENV_VARS
