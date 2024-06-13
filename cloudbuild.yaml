@@ -1,13 +1,13 @@
 steps:
-# Docker Build
+# Build a Docker Image 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', '$_ARTIFACTS_DIR/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$COMMIT_SHA', '.']
 
-# Docker Push
+# Image Push to Artifacts Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', '$_ARTIFACTS_DIR/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$COMMIT_SHA']
 
-# Deploy container image to Cloud Run
+# Deploy Image to Cloud Run Services
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args:
