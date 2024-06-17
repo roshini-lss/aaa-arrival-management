@@ -4,15 +4,18 @@ import { BrowserRouter as Router } from "react-router-dom"
 import App from "./App"
 import "bootstrap/dist/css/bootstrap.css"
 import { SelectedProvider } from "./contexts/SelectedContext"
-import { ChakraProvider, theme } from "@chakra-ui/react";
+import { ChakraProvider, theme } from "@chakra-ui/react"
+import { UserProvider } from "./contexts/UserContext"
 
 ReactDOM.render(
     <Router>
-        <SelectedProvider>
-        <ChakraProvider theme={theme}>
-            <App />
-        </ChakraProvider>
-        </SelectedProvider>
+        <UserProvider>
+            <SelectedProvider>
+                <ChakraProvider theme={theme}>
+                    <App />
+                </ChakraProvider>
+            </SelectedProvider>
+        </UserProvider>
     </Router>,
     document.getElementById("root")
 )
