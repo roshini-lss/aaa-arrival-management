@@ -199,10 +199,10 @@ function App() {
           <ModalCloseButton />
           <ModalBody>
             <Text>
-              The Google Estimated Time is <b>{duration}</b>
+            Google Estimated Time: <b>{duration}</b>
             </Text>
             <Text>
-              But, Predicted Duration is {" "}
+              Predicted Duration: {" "}
               <b>{formatDuration(predictedDuration)}</b>
             </Text>
           </ModalBody>

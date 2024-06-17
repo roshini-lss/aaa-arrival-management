@@ -7,8 +7,8 @@ import { Toaster, toast } from "sonner";
 const Login = () => {
   const techAdminUsername = "TechAdmin";
   const techAdminPassword = "TechAdmin#1";
-  const callManagementUsername = "CallMgmt";
-  const callManagementPassword = "CallMgmt#1";
+  const callManagementUsername = "RoadServiceAdmin";
+  const callManagementPassword = "RoadServiceAdmin#1";
   const navigate = useNavigate();
   const {
     register,

@@ -50,7 +50,8 @@ const OrderDesc = ({ workOrders }) => {
                     </div>
                     <hr></hr>
                     <div className="other-details">
-                        <div>01/02/2024, there had a good condition</div>
+                        <div><h3>Previous work order summary</h3></div>
+                        <div>Flat tyre and the issue was closed on time and the customer is happy.</div>
                     </div>
                 </div>
             ) : (
