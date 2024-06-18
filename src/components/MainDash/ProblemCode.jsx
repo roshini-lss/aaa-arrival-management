@@ -56,10 +56,10 @@ const ProblemCode = () => {
     serviceData[item] = batteryJump(item);
   });
 
-  const { setSelected } = useContext(SelectedContext);
-  useEffect(() => {
-    setSelected("By Problem code");
-  }, []);
+//   const { setSelected } = useContext(SelectedContext);
+//   useEffect(() => {
+//     setSelected("By Problem code");
+//   }, []);
 
   console.log(serviceData.Battery_Jump);
 
