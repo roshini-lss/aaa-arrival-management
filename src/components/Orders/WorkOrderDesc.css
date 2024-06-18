@@ -88,3 +88,7 @@ button.view-btn {
   font-weight: bolder;
   /* width: 85px; */
 }
+.view-btn:hover{
+  background-color: #f07575;
+  color: white;
+}

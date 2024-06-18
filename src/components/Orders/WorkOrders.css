@@ -99,4 +99,27 @@ input.order-input {
 .input-container {
   /* border: 1px solid; */
   width: 100%;
+  display: flex;
+    gap: 13px;
+}
+
+
+.go-container {
+  display: flex;
+  flex-direction: row;
+  gap: 22px;
+}
+
+button.go-button {
+  /* border: 1px solid; */
+  padding: 12px 15px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0px 0px 3px #aaa;
+  font-weight: bold;
+}
+
+.go-button:hover {
+  background-color: #f07575;
+  color: white;
 }

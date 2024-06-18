@@ -3,7 +3,7 @@ import "./WorkOrders.css";
 import OrderDesc from "./WorkOrderDesc";
 import allData from "../../Data/all-data.json";
 import { SelectedContext } from "../../contexts/SelectedContext";
-
+import { IoSend } from "react-icons/io5";
 const Order = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [orderNo, setOrderNo] = useState(0);
@@ -52,6 +52,7 @@ const Order = () => {
       {!isSubmitted ? (
         <div className="order-main">
           <div className={`order-container ${isSubmitted ? "submitted" : ""}`}>
+            <div className="go-container">
             {/* <div className="order-title">Enter Work Order:</div> */}
             <input
               className="order-input"
@@ -61,6 +62,9 @@ const Order = () => {
               onChange={handleChange}
               onKeyDown={(event) => event.key === 'Enter' && handleSubmit()}
             ></input>
+            <button className="go-button" onClick={handleSubmit}><IoSend />
+</button>
+            </div>
             {error && <div className="order-error">{error}</div>}
             {/* <div className="">
               <button
@@ -88,6 +92,8 @@ const Order = () => {
                 onChange={handleChange}
                 onKeyDown={(event) => event.key === 'Enter' && handleSubmit()}
               ></input>
+              <button className="go-button" onClick={handleSubmit}><IoSend />
+</button>
             </div>
             {/* <div>
               <button
