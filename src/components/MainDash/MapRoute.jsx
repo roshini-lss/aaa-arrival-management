@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import {
     Box,
     Button,
@@ -25,8 +25,9 @@ import {
     Autocomplete,
     DirectionsRenderer,
 } from "@react-google-maps/api"
-import { useLocation } from "react-router-dom"
+
 const center = { lat: 48.8584, lng: 2.2945 }
+
 function App() {
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -38,78 +39,60 @@ function App() {
     const [duration, setDuration] = useState("")
     const [predictedDuration, setPredictedDuration] = useState("")
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const originRef = useRef()
-    const destinationLatRef = useRef()
-    const destinationLngRef = useRef()
-    const location = useLocation()
-    const params = new URLSearchParams(location.search)
-    const state = {
-        dest_latitude: params.get("latitude"),
-        dest_longitude: params.get("longitude"),
-    }
-    async function calculateRoute(coord) {
-        // if (
-        //     originRef.current.value === "" ||
-        //     destinationLatRef.current.value === "" ||
-        //     destinationLngRef.current.value === ""
-        // ) {
-        //     return
-        // }
-        const destination = {
-            lat: parseFloat(
-                coord?.destination?.lat || destinationLatRef.current.value
-            ),
-            lng: parseFloat(
-                coord?.destination?.lng || destinationLngRef.current.value
-            ),
+    const [origin, setOrigin] = useState("Pleasanton, CA")
+    const [destination, setDestination] = useState(
+        "4900 Hopyard Rd STE 100, Pleasanton, California"
+    )
+
+    async function calculateRoute() {
+        if (!origin || !destination) {
+            return
         }
-        console.log("HEre1", destination)
+        console.log(origin, destination)
+
         const directionsService = new window.google.maps.DirectionsService()
         const results = await directionsService.route({
-            origin: originRef.current.value || "California",
+            origin: origin,
             destination: destination,
             travelMode: window.google.maps.TravelMode.DRIVING,
         })
+
         setDirectionsResponse(results)
         setDuration(results.routes[0].legs[0].duration.text)
+
         const googleDurationInSeconds = results.routes[0].legs[0].duration.value
         const predictedDurationInSeconds = googleDurationInSeconds + 60 * 20
         setPredictedDuration(predictedDurationInSeconds)
+
         setDistance(results.routes[0].legs[0].distance.text)
         onOpen()
     }
-    console.log(predictedDuration)
+
     useEffect(() => {
-        console.log(state.dest_latitude != null, state.dest_longitude != null)
-        if (
-            isLoaded &&
-            state.dest_latitude != null &&
-            state.dest_longitude != null
-        )
-            calculateRoute({
-                destination: {
-                    lat: state.dest_latitude,
-                    lng: state.dest_longitude,
-                },
-            })
-    }, [state.dest_latitude, state.dest_longitude, isLoaded])
+        if (isLoaded && destination) {
+            calculateRoute()
+        }
+    }, [isLoaded])
+
     function clearRoute() {
         setDirectionsResponse(null)
         setDistance("")
         setDuration("")
         setPredictedDuration("")
-        originRef.current.value = ""
-        destinationLatRef.current.value = ""
-        destinationLngRef.current.value = ""
+        setOrigin("California")
+        setDestination("4900 Hopyard Rd STE 100, Pleasanton, California")
     }
+
     function formatDuration(durationInSeconds) {
         const hours = Math.floor(durationInSeconds / 3600)
         const minutes = Math.floor((durationInSeconds % 3600) / 60)
         return `${hours > 0 ? `${hours} hours ` : ""}${minutes} mins`
     }
+
     if (!isLoaded) {
         return <SkeletonText />
     }
+
     return (
         <Flex
             position="relative"
@@ -152,26 +135,20 @@ function App() {
                             <Input
                                 type="text"
                                 placeholder="Origin"
-                                ref={originRef}
-                                defaultValue="California"
+                                value={origin}
+                                onChange={(e) => setOrigin(e.target.value)}
                             />
                         </Autocomplete>
                     </Box>
                     <Box flexGrow={1}>
-                        <Input
-                            type="text"
-                            placeholder="Destination Latitude"
-                            ref={destinationLatRef}
-                            value={state.dest_latitude}
-                        />
-                    </Box>
-                    <Box flexGrow={1}>
-                        <Input
-                            type="text"
-                            placeholder="Destination Longitude"
-                            ref={destinationLngRef}
-                            value={state.dest_longitude}
-                        />
+                        <Autocomplete>
+                            <Input
+                                type="text"
+                                placeholder="Destination"
+                                value={destination}
+                                onChange={(e) => setDestination(e.target.value)}
+                            />
+                        </Autocomplete>
                     </Box>
                     <ButtonGroup>
                         <Button
@@ -224,4 +201,5 @@ function App() {
         </Flex>
     )
 }
+
 export default App

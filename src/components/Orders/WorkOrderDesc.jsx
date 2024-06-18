@@ -3,14 +3,9 @@ import "./WorkOrderDesc.css"
 
 const OrderDesc = ({ workOrders }) => {
     const item = workOrders[0]
-    const stateToPass = {
-        latitude: item.breakdown_location_latitude,
-        longitude: item.breakdown_location_longitude,
-    }
 
     const viewMap = () => {
-        const queryString = new URLSearchParams(stateToPass).toString()
-        window.open(`/view-map?${queryString}`, "_blank")
+        window.open(`/view-map`, "_blank")
     }
 
     return (
@@ -50,8 +45,13 @@ const OrderDesc = ({ workOrders }) => {
                     </div>
                     <hr></hr>
                     <div className="other-details">
-                        <div><h3>Previous work order summary</h3></div>
-                        <div>Flat tyre and the issue was closed on time and the customer is happy.</div>
+                        <div>
+                            <h3>Previous work order summary</h3>
+                        </div>
+                        <div>
+                            Flat tyre and the issue was closed on time and the
+                            customer is happy.
+                        </div>
                     </div>
                 </div>
             ) : (
@@ -62,7 +62,3 @@ const OrderDesc = ({ workOrders }) => {
 }
 
 export default OrderDesc
-
-
-
-
