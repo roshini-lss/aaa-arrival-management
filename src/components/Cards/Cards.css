@@ -1,6 +1,9 @@
 .card-container {
     display: flex;
 }
+.card-container:hover{
+  transform: scale(1.12);
+}
 .card-container .category-label {
     display: flex;
     flex-direction: column;
@@ -85,9 +88,9 @@
 .unassigned {
     padding: 1px;
 }
-.category-image:hover {
+/* .category-image:hover {
     transform: scale(1.12);
-}
+} */
 
 .category-title {
     font-family: Vollkorn;
