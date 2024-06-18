@@ -98,11 +98,3 @@
     font-weight: bold;
     color: darkmagenta;
 }
-
-.card-container.pop:hover{
-  transform: none;
-}
-
-.card-container.pop{
-  cursor: default !important;
-}

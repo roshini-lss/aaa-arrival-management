@@ -157,6 +157,7 @@ const ProblemCode = () => {
     location.pathname === "/by-region" ? { left: "20px" } : { left: "unset" };
   const problemCode = location.pathname === "/by-problem-code";
   
+  console.log(byProblemCodeDatas);
   return (
     <div className="MainDash-Component">
       <div className="main-view-title">VIEW BY - PROBLEM CODE</div>

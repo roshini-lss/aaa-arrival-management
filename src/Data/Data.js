@@ -120,17 +120,17 @@ const calculateTotalsByDescription = (data, description) => {
     title: description,
     totalWO: data.filter(
       (item) => item.description_of_the_problem_code === description
-    ).length,
+    ),
     assingedPTA: data.filter(
       (item) =>
         item.description_of_the_problem_code === description &&
         item.pta_truck_predicted > 0
-    ).length,
+    ),
     delays: data.filter(
       (item) =>
         item.description_of_the_problem_code === description &&
         item.pta_truck > item.pta_truck_predicted
-    ).length,
+    ),
   };
 };
 
@@ -171,56 +171,56 @@ export const byProblemCodeDatas = [
     img: batteryjump,
     name: "Battery Jump",
     datas: batteryJumpTotal,
-    unassigned: batteryJumpTotal.totalWO - batteryJumpTotal.assingedPTA,
+    unassigned: batteryJumpTotal.totalWO.length - batteryJumpTotal.assingedPTA.length,
   },
   {
     color: "green",
     img: batteryService,
     name: "Battery Service",
     datas: batteryServiceTotal,
-    unassigned: batteryServiceTotal.totalWO - batteryServiceTotal.assingedPTA,
+    unassigned: batteryServiceTotal.totalWO.length - batteryServiceTotal.assingedPTA.length,
   },
   {
     color: "yellow",
     img: extricationRecovery,
     name: "Extraction Recovery",
     datas: extractionRecoveryTotal,
-    unassigned: batteryJumpTotal.totalWO - batteryJumpTotal.assingedPTA,
+    unassigned: batteryJumpTotal.totalWO.length - batteryJumpTotal.assingedPTA.length,
   },
   {
     color: "red",
     img: flatTyre,
     name: "Flat Tire No Spare",
     datas: flatTireTotals,
-    unassigned: flatTireTotals.totalWO - flatTireTotals.assingedPTA,
+    unassigned: flatTireTotals.totalWO.length - flatTireTotals.assingedPTA.length,
   },
   {
     color: "red",
     img: towAccident,
     name: "Tow Accident",
     datas: towAccidentTotal,
-    unassigned: towAccidentTotal.totalWO - towAccidentTotal.assingedPTA,
+    unassigned: towAccidentTotal.totalWO.length - towAccidentTotal.assingedPTA.length,
   },
   {
     color: "green",
     img: images,
     name: "Tow Motorcycle",
     datas: towMotorcycleTotal,
-    unassigned: towMotorcycleTotal.totalWO - towMotorcycleTotal.assingedPTA,
+    unassigned: towMotorcycleTotal.totalWO.length - towMotorcycleTotal.assingedPTA.length,
   },
   {
     color: "red",
     img: towMechanic,
     name: "Tow Mechanical",
     datas: towMechanicalTotals,
-    unassigned: towMechanicalTotals.totalWO - towMechanicalTotals.assingedPTA,
+    unassigned: towMechanicalTotals.totalWO.length - towMechanicalTotals.assingedPTA.length,
   },
   {
     color: "green",
     img: lockout,
     name: "Lockout",
     datas: lockoutTotal,
-    unassigned: lockoutTotal.totalWO - lockoutTotal.assingedPTA,
+    unassigned: lockoutTotal.totalWO.length - lockoutTotal.assingedPTA.length,
   },
 ];
 
