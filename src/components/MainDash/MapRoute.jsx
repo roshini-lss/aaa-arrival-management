@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import {
     Box,
     Button,
@@ -22,8 +22,8 @@ import {
     useJsApiLoader,
     GoogleMap,
     Marker,
-    Autocomplete,
     DirectionsRenderer,
+    Autocomplete,
 } from "@react-google-maps/api"
 
 const center = { lat: 48.8584, lng: 2.2945 }
@@ -33,6 +33,7 @@ function App() {
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries: ["places"],
     })
+
     const [map, setMap] = useState(null)
     const [directionsResponse, setDirectionsResponse] = useState(null)
     const [distance, setDistance] = useState("")
@@ -44,10 +45,14 @@ function App() {
         "4900 Hopyard Rd STE 100, Pleasanton, California"
     )
 
+    const originRef = useRef()
+    const destinationRef = useRef()
+
     async function calculateRoute() {
         if (!origin || !destination) {
             return
         }
+
         console.log(origin, destination)
 
         const directionsService = new window.google.maps.DirectionsService()
@@ -69,7 +74,7 @@ function App() {
     }
 
     useEffect(() => {
-        if (isLoaded && destination) {
+        if (isLoaded) {
             calculateRoute()
         }
     }, [isLoaded])
@@ -79,7 +84,7 @@ function App() {
         setDistance("")
         setDuration("")
         setPredictedDuration("")
-        setOrigin("California")
+        setOrigin("Pleasanton, CA")
         setDestination("4900 Hopyard Rd STE 100, Pleasanton, California")
     }
 
@@ -87,6 +92,20 @@ function App() {
         const hours = Math.floor(durationInSeconds / 3600)
         const minutes = Math.floor((durationInSeconds % 3600) / 60)
         return `${hours > 0 ? `${hours} hours ` : ""}${minutes} mins`
+    }
+
+    function handleOriginPlaceChanged() {
+        const place = originRef.current.getPlace()
+        if (place && place.formatted_address) {
+            setOrigin(place.formatted_address)
+        }
+    }
+
+    function handleDestinationPlaceChanged() {
+        const place = destinationRef.current.getPlace()
+        if (place && place.formatted_address) {
+            setDestination(place.formatted_address)
+        }
     }
 
     if (!isLoaded) {
@@ -114,7 +133,6 @@ function App() {
                     }}
                     onLoad={(map) => setMap(map)}
                 >
-                    <Marker position={center} />
                     {directionsResponse && (
                         <DirectionsRenderer directions={directionsResponse} />
                     )}
@@ -131,7 +149,10 @@ function App() {
             >
                 <HStack spacing={2} justifyContent="space-between">
                     <Box flexGrow={1}>
-                        <Autocomplete>
+                        <Autocomplete
+                            onLoad={(ref) => (originRef.current = ref)}
+                            onPlaceChanged={handleOriginPlaceChanged}
+                        >
                             <Input
                                 type="text"
                                 placeholder="Origin"
@@ -141,7 +162,10 @@ function App() {
                         </Autocomplete>
                     </Box>
                     <Box flexGrow={1}>
-                        <Autocomplete>
+                        <Autocomplete
+                            onLoad={(ref) => (destinationRef.current = ref)}
+                            onPlaceChanged={handleDestinationPlaceChanged}
+                        >
                             <Input
                                 type="text"
                                 placeholder="Destination"
@@ -156,7 +180,7 @@ function App() {
                             type="submit"
                             onClick={calculateRoute}
                         >
-                            Calculate Route
+                            Calculate Time
                         </Button>
                         <IconButton
                             aria-label="center back"
@@ -188,9 +212,6 @@ function App() {
                     <ModalHeader>Route Info</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Text>
-                            Google Estimated Time: <b>{duration}</b>
-                        </Text>
                         <Text>
                             Predicted Duration:{" "}
                             <b>{formatDuration(predictedDuration)}</b>
