@@ -55,7 +55,7 @@ const OrderDesc = ({ workOrders }) => {
                     </div>
                 </div>
             ) : (
-                <div className="desc-none">None Found!</div>
+                <div className="desc-none">{alert("Not Found, Try valid work order number")}</div>
             )}
         </>
     )
