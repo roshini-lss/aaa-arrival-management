@@ -100,7 +100,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
 
     return (
         <>
-            <div className="card-container" onClick={handleChange}>
+            <div className={`card-container ${location.pathname === "/by-problem-code" && "pop"}`} onClick={handleChange}>
                 <div className="status-indicator-container">
                     <div
                         className="status-indicator"
