@@ -35,6 +35,8 @@ const CAData = {
   ).length,
 };
 
+console.log(CAData);
+
 const NVData = {
   totalNumberOfOrders: allData.filter((item) => item.State === "NV").length,
   assingedPTA: allData.filter(
@@ -113,36 +115,114 @@ export const batteryJumpFunc = () => {
   return value.totalNumberOfOrders;
 };
 
-// export const SidebarData = [
-//   {
-//     icon: UilEstate,
-//     heading: "Home",
-//   },
-//   {
-//     icon: UilClipboardAlt,
-//     heading: "User Management",
-//   },
-//   {
-//     icon: UilUsersAlt,
-//     heading: "Onboard New Vendor",
-//   },
-//   {
-//     icon: UilPackage,
-//     heading: 'Other Admin Functions'
-//   },
-//   {
-//     icon: UilChart,
-//     heading: 'PTA Health Check'
-//   },
-//   {
-//     icon: UilChart,
-//     heading: 'By Problem code'
-//   },
-//   {
-//     icon: UilChart,
-//     heading: 'By Region'
-//   },
-// ];
+const calculateTotalsByDescription = (data, description) => {
+  return {
+    title: description,
+    totalWO: data.filter(
+      (item) => item.description_of_the_problem_code === description
+    ).length,
+    assingedPTA: data.filter(
+      (item) =>
+        item.description_of_the_problem_code === description &&
+        item.pta_truck_predicted > 0
+    ).length,
+    delays: data.filter(
+      (item) =>
+        item.description_of_the_problem_code === description &&
+        item.pta_truck > item.pta_truck_predicted
+    ).length,
+  };
+};
+
+const batteryJumpTotal = calculateTotalsByDescription(allData, "Battery_Jump");
+
+const towMechanicalTotals = calculateTotalsByDescription(
+  allData,
+  "Tow_Mechanical"
+);
+
+const flatTireTotals = calculateTotalsByDescription(
+  allData,
+  "Flat_Tire_No_Spare"
+);
+
+const extractionRecoveryTotal = calculateTotalsByDescription(
+  allData,
+  "Extrication_Recovery"
+);
+
+const towAccidentTotal = calculateTotalsByDescription(allData, "Tow_Accident");
+
+const batteryServiceTotal = calculateTotalsByDescription(
+  allData,
+  "Battery_Service"
+);
+
+const towMotorcycleTotal = calculateTotalsByDescription(
+  allData,
+  "Tow_Motorcycle"
+);
+
+const lockoutTotal = calculateTotalsByDescription(allData, "Lockout");
+
+export const byProblemCodeDatas = [
+  {
+    color: "green",
+    img: batteryjump,
+    name: "Battery Jump",
+    datas: batteryJumpTotal,
+    unassigned: batteryJumpTotal.totalWO - batteryJumpTotal.assingedPTA,
+  },
+  {
+    color: "green",
+    img: batteryService,
+    name: "Battery Service",
+    datas: batteryServiceTotal,
+    unassigned: batteryServiceTotal.totalWO - batteryServiceTotal.assingedPTA,
+  },
+  {
+    color: "yellow",
+    img: extricationRecovery,
+    name: "Extraction Recovery",
+    datas: extractionRecoveryTotal,
+    unassigned: batteryJumpTotal.totalWO - batteryJumpTotal.assingedPTA,
+  },
+  {
+    color: "red",
+    img: flatTyre,
+    name: "Flat Tire No Spare",
+    datas: flatTireTotals,
+    unassigned: flatTireTotals.totalWO - flatTireTotals.assingedPTA,
+  },
+  {
+    color: "red",
+    img: towAccident,
+    name: "Tow Accident",
+    datas: towAccidentTotal,
+    unassigned: towAccidentTotal.totalWO - towAccidentTotal.assingedPTA,
+  },
+  {
+    color: "green",
+    img: images,
+    name: "Tow Motorcycle",
+    datas: towMotorcycleTotal,
+    unassigned: towMotorcycleTotal.totalWO - towMotorcycleTotal.assingedPTA,
+  },
+  {
+    color: "red",
+    img: towMechanic,
+    name: "Tow Mechanical",
+    datas: towMechanicalTotals,
+    unassigned: towMechanicalTotals.totalWO - towMechanicalTotals.assingedPTA,
+  },
+  {
+    color: "green",
+    img: lockout,
+    name: "Lockout",
+    datas: lockoutTotal,
+    unassigned: lockoutTotal.totalWO - lockoutTotal.assingedPTA,
+  },
+];
 
 export const sideBarDatasNavigate = [
   {
