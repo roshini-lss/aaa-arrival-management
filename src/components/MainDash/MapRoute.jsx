@@ -163,7 +163,6 @@ function App() {
   if (!isLoaded) {
     return <SkeletonText />;
   }
-
   return (
     <Flex
       position="relative"
