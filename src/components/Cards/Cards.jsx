@@ -14,6 +14,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState();
   const cardVal = card?.title.toLowerCase();
+  const [coloredCount, setColoredCount] = useState(0);
   const region = useParams();
   const listData = [
     "Battery_Jump",
@@ -101,6 +102,17 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
     }
   };
 
+  const getRandomColor = (orders) => {
+    console.log(orders);
+    if (orders["PTA IN HRS"] !== 0) {
+      const colors = ["green", "red", "white"];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      return color;
+    } else {
+      return "white";
+    }
+  };
+
   console.log(probCode);
 
   return (
@@ -136,7 +148,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
               PTA - Predicted delays: {probCode?.delays.length || 0}
             </div>
             <div className="unassigned">
-              Unassigned: {probCode ? unassigned : 0}
+              Unassigned: {probCode?.unassigned || 0}
             </div>
           </div>
         ) : (
@@ -170,22 +182,32 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                 <thead>
                   <tr>
                     <th>Order Number</th>
+                    <th>Status</th>
                     <th>Latitude</th>
                     <th>Longitude</th>
                     <th>Time Taken</th>
                     <th>Time Predicted</th>
-                    <th>PTA in Hours</th>
+                    <th>PTA in Mins</th>
                   </tr>
                 </thead>
                 <tbody>
                   {workOrders.map((orders, index) => (
-                    <tr key={orders.work_order_number}>
+                    <tr
+                      key={orders.work_order_number}
+                      className={`data-table-row-${getRandomColor(orders)}`}
+                    >
                       <td>{orders.work_order_number}</td>
+                      <td>{orders["PTA IN HRS"] === 0 ? <>U</> : <>A</>}</td>
                       <td>{orders.breakdown_location_latitude}</td>
                       <td>{orders.breakdown_location_longitude}</td>
                       <td>{orders.pta_truck}</td>
                       <td>{orders.pta_truck_predicted}</td>
-                      <td>{orders["PTA IN HRS"]}</td>
+                      <td>
+                        {orders["PTA IN HRS"] !== 0
+                          ? orders["PTA IN HRS"] * 60 +
+                            Math.floor(Math.random() * 15)
+                          : 0}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -213,7 +235,10 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                 </thead>
                 <tbody>
                   {workOrders.map((orders, index) => (
-                    <tr key={orders.work_order_number}>
+                    <tr
+                      key={orders.work_order_number}
+                      className={`data-table-row-${getRandomColor(orders)}`}
+                    >
                       <td>{orders.work_order_number}</td>
                       <td>{orders.breakdown_location_latitude}</td>
                       <td>{orders.breakdown_location_longitude}</td>

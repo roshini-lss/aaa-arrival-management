@@ -1,13 +1,20 @@
-import React from "react"
-import "./WorkOrderDesc.css"
-import { ordersHistory } from "../../Data/Data"
+import React from "react";
+import { Toaster, toast } from "sonner";
+import "./WorkOrderDesc.css";
+import { defaultHistory, ordersHistory } from "../../Data/Data"
 
 const OrderDesc = ({ workOrders }) => {
-    const item = workOrders[0]
+  const item = workOrders[0];
+  //   if (item === undefined) {
+  //     toast.warning("Invalid Credentials");
+  //   }
 
-    const history = ordersHistory.filter(
-        (data) => data.workOrderNo === String(item.work_order_number)
+    let history = ordersHistory.filter(
+        (data) => data.workOrderNo === String(item?.work_order_number)
     )
+    if(history.length === 0) {
+        history = defaultHistory
+    }
 
     history.sort((a, b) => {
         const dateA = new Date(a.date)
@@ -17,8 +24,8 @@ const OrderDesc = ({ workOrders }) => {
     console.log(history)
 
     const stateToPass = {
-        latitude: item.breakdown_location_latitude,
-        longitude: item.breakdown_location_longitude,
+        latitude: item?.breakdown_location_latitude,
+        longitude: item?.breakdown_location_longitude,
     }
 
     const viewMap = () => {
@@ -85,11 +92,10 @@ const OrderDesc = ({ workOrders }) => {
                 </div>
             ) : (
                 <div className="desc-none">
-                    {alert("Not Found, Try valid work order number")}
                 </div>
-            )}
+              )}
         </>
     )
 }
 
-export default OrderDesc
+export default OrderDesc;

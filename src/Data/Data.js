@@ -123,23 +123,28 @@ export const batteryJumpFunc = () => {
 }
 
 const calculateTotalsByDescription = (data, description) => {
-    return {
-        title: description,
-        totalWO: data.filter(
-            (item) => item.description_of_the_problem_code === description
-        ),
-        assingedPTA: data.filter(
-            (item) =>
-                item.description_of_the_problem_code === description &&
-                item.pta_truck_predicted > 0
-        ),
-        delays: data.filter(
-            (item) =>
-                item.description_of_the_problem_code === description &&
-                item.pta_truck > item.pta_truck_predicted
-        ),
-    }
-}
+  return {
+    title: description,
+    totalWO: data.filter(
+      (item) => item.description_of_the_problem_code === description
+    ),
+    assingedPTA: data.filter(
+      (item) =>
+        item.description_of_the_problem_code === description &&
+        item.pta_truck_predicted > 0
+    ),
+    delays: data.filter(
+      (item) =>
+        item.description_of_the_problem_code === description &&
+        item.pta_truck > item.pta_truck_predicted
+    ),
+    unassigned: data.filter(
+      (item) =>
+        item.description_of_the_problem_code === description &&
+        item["PTA IN HRS"] === 0
+    ).length,
+  };
+};
 
 const batteryJumpTotal = calculateTotalsByDescription(allData, "Battery_Jump")
 
@@ -173,77 +178,63 @@ const towMotorcycleTotal = calculateTotalsByDescription(
 const lockoutTotal = calculateTotalsByDescription(allData, "Lockout")
 
 export const byProblemCodeDatas = [
-    {
-        color: "green",
-        img: batteryjump,
-        name: "Battery Jump",
-        datas: batteryJumpTotal,
-        unassigned:
-            batteryJumpTotal.totalWO.length -
-            batteryJumpTotal.assingedPTA.length,
-    },
-    {
-        color: "green",
-        img: batteryService,
-        name: "Battery Service",
-        datas: batteryServiceTotal,
-        unassigned:
-            batteryServiceTotal.totalWO.length -
-            batteryServiceTotal.assingedPTA.length,
-    },
-    {
-        color: "yellow",
-        img: extricationRecovery,
-        name: "Extraction Recovery",
-        datas: extractionRecoveryTotal,
-        unassigned:
-            batteryJumpTotal.totalWO.length -
-            batteryJumpTotal.assingedPTA.length,
-    },
-    {
-        color: "red",
-        img: flatTyre,
-        name: "Flat Tire No Spare",
-        datas: flatTireTotals,
-        unassigned:
-            flatTireTotals.totalWO.length - flatTireTotals.assingedPTA.length,
-    },
-    {
-        color: "red",
-        img: towAccident,
-        name: "Tow Accident",
-        datas: towAccidentTotal,
-        unassigned:
-            towAccidentTotal.totalWO.length -
-            towAccidentTotal.assingedPTA.length,
-    },
-    {
-        color: "green",
-        img: images,
-        name: "Tow Motorcycle",
-        datas: towMotorcycleTotal,
-        unassigned:
-            towMotorcycleTotal.totalWO.length -
-            towMotorcycleTotal.assingedPTA.length,
-    },
-    {
-        color: "red",
-        img: towMechanic,
-        name: "Tow Mechanical",
-        datas: towMechanicalTotals,
-        unassigned:
-            towMechanicalTotals.totalWO.length -
-            towMechanicalTotals.assingedPTA.length,
-    },
-    {
-        color: "green",
-        img: lockout,
-        name: "Lockout",
-        datas: lockoutTotal,
-        unassigned:
-            lockoutTotal.totalWO.length - lockoutTotal.assingedPTA.length,
-    },
-]
+  {
+    color: "green",
+    img: batteryjump,
+    name: "Battery Jump",
+    datas: batteryJumpTotal,
+    // unassigned: batteryJumpTotal.totalWO.length - batteryJumpTotal.assingedPTA.length,
+  },
+  {
+    color: "green",
+    img: batteryService,
+    name: "Battery Service",
+    datas: batteryServiceTotal,
+    // unassigned: batteryServiceTotal.totalWO.length - batteryServiceTotal.assingedPTA.length,
+  },
+  {
+    color: "yellow",
+    img: extricationRecovery,
+    name: "Extraction Recovery",
+    datas: extractionRecoveryTotal,
+    // unassigned: batteryJumpTotal.totalWO.length - batteryJumpTotal.assingedPTA.length,
+  },
+  {
+    color: "red",
+    img: flatTyre,
+    name: "Flat Tire No Spare",
+    datas: flatTireTotals,
+    // unassigned: flatTireTotals.totalWO.length - flatTireTotals.assingedPTA.length,
+  },
+  {
+    color: "red",
+    img: towAccident,
+    name: "Tow Accident",
+    datas: towAccidentTotal,
+    // unassigned: towAccidentTotal.totalWO.length - towAccidentTotal.assingedPTA.length,
+  },
+  {
+    color: "green",
+    img: images,
+    name: "Tow Motorcycle",
+    datas: towMotorcycleTotal,
+    // unassigned: towMotorcycleTotal.totalWO.length - towMotorcycleTotal.assingedPTA.length,
+  },
+  {
+    color: "red",
+    img: towMechanic,
+    name: "Tow Mechanical",
+    datas: towMechanicalTotals,
+    // unassigned: towMechanicalTotals.totalWO.length - towMechanicalTotals.assingedPTA.length,
+  },
+  {
+    color: "green",
+    img: lockout,
+    name: "Lockout",
+    datas: lockoutTotal,
+    // unassigned: lockoutTotal.totalWO.length - lockoutTotal.assingedPTA.length,
+  },
+];
 
 export const sideBarDatasNavigate = [
     {
@@ -491,15 +482,30 @@ export const ordersHistory = [
         positive: false,
     },
     {
-        workOrderNo: "36529",
+        workOrderNo: "36695",
         date: "01/02/2024",
         review: "Tow truck arrived in 40 minutes, towed car to the repair shop. Car broke down due to engine failure and the customer was angry about the long wait and unfriendly driver.",
         positive: false,
     },
     {
-        workOrderNo: "36529",
+        workOrderNo: "36695",
         date: "01/25/2024",
         review: "Mechanic arrived in 15 minutes, changed the tire quickly. Customer was very happy with the quick response and great service.",
         positive: true,
     },
+]
+
+export const defaultHistory = [
+  {
+    date: "01/25/2024",
+        review: "Mechanic arrived in 15 minutes, changed the tire quickly. Customer was very happy with the quick response and great service.",
+        positive: true,
+  },
+  {
+    workOrderNo: "36526",
+    date: "09/18/2023",
+    review: "Mechanic arrived within 20 minutes, changed tire swiftly. Customer stressed about missing an important meeting was relieved and happy.",
+    positive: true,
+},
+
 ]
