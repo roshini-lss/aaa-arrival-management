@@ -26,60 +26,67 @@ import {
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import { MdRefresh } from "react-icons/md";
+
 const center = { lat: 48.8584, lng: 2.2945 };
+
 function App() {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ["places"],
   });
+
   const [map, setMap] = useState(null);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [predictedDuration, setPredictedDuration] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [origin, setOrigin] = useState("Pleasanton, CA");
+  const [origin, setOrigin] = useState("");
   const [originPosition, setOriginPosition] = useState(null);
   const [truckPosition, setTruckPosition] = useState(null);
-  const [autoRefresh, setAutoRefresh] = useState(false);
+  const [source, setSource] = useState("Pleasanton, CA");
   const [destination, setDestination] = useState(
     "4900 Hopyard Rd STE 100, Pleasanton, California"
   );
 
-  const calculateRouteIntervalRef = useRef(null); // Ref to hold interval ID
+  const calculateRouteIntervalRef = useRef(null);
+
   async function calculateRoute() {
-    if (!origin || !destination) {
+    if (!source || !destination) {
       return;
     }
+
     const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ address: origin }, async (results, status) => {
+    geocoder.geocode({ address: source }, async (results, status) => {
       if (status === "OK" && results[0]) {
         const originLatLng = results[0].geometry.location;
         setOriginPosition(originLatLng);
+
         const directionsService = new window.google.maps.DirectionsService();
         const directionsResults = await directionsService.route({
           origin: originLatLng,
           destination: destination,
           travelMode: window.google.maps.TravelMode.DRIVING,
         });
+
         setDirectionsResponse(directionsResults);
+
         const durationText = directionsResults.routes[0].legs[0].duration.text;
         const minutes = parseInt(durationText); // Extract the number of minutes
         const durationInSeconds = minutes * 60;
         setDuration(directionsResults.routes[0].legs[0].duration.text);
+
         const googleDurationInSeconds =
           directionsResults.routes[0].legs[0].duration.value;
         const predictedDurationInSeconds = googleDurationInSeconds + 60 * 20;
         setPredictedDuration(predictedDurationInSeconds);
+
         setTruckPosition(directionsResults.routes[0].overview_path[0]);
-        animateTruck(
-          directionsResults.routes[0].overview_path,
-          predictedDurationInSeconds
-          // durationInSeconds
-        );
+        animateTruck(directionsResults.routes[0].overview_path, predictedDurationInSeconds);
+
         setDistance(directionsResults.routes[0].legs[0].distance.text);
         onOpen();
-        // Check if destination reached
+
         const legs = directionsResults.routes[0].legs;
         if (legs && legs.length > 0 && legs[0].end_address === destination) {
           clearInterval(calculateRouteIntervalRef.current);
@@ -89,50 +96,47 @@ function App() {
       }
     });
   }
+
   useEffect(() => {
     if (isLoaded && destination) {
       calculateRoute();
     }
   }, [isLoaded, destination]);
+
   function clearRoute() {
-    // setDirectionsResponse(null);
-    // setDistance("");
-    // setDuration("");
-    // setPredictedDuration("");
-    // setOrigin("California");
-    // setDestination("4900 Hopyard Rd STE 100, Pleasanton, California");
-    // setOriginPosition(null);
-    // setTruckPosition(null);
-    // clearInterval(calculateRouteIntervalRef.current); // Clear interval on route clear
     calculateRoute();
   }
+
   function formatDuration(durationInSeconds) {
     const hours = Math.floor(durationInSeconds / 3600);
     const minutes = Math.floor((durationInSeconds % 3600) / 60);
     return `${hours > 0 ? `${hours} hours ` : ""}${minutes} mins`;
   }
+
   function animateTruck(path, durationInSeconds) {
     const totalSteps = path.length;
-    const intervalTime = 1000;
+    const intervalTime = 5000;
     let currentStep = 0;
     const interval = setInterval(() => {
       if (currentStep < totalSteps) {
         const progress = currentStep / totalSteps;
         const nextPosition = interpolatePosition(path, progress);
         setTruckPosition(nextPosition);
-        setOriginPosition(nextPosition); 
-        updateOriginInput(nextPosition); 
-        currentStep += 1;
+        setOriginPosition(nextPosition);
+        updateOriginInput(nextPosition);
+        currentStep += 25;
       } else {
         clearInterval(interval);
       }
     }, intervalTime);
   }
+
   function interpolatePosition(path, progress) {
     const totalDistance =
       window.google.maps.geometry.spherical.computeLength(path);
     const targetDistance = totalDistance * progress;
     let accumulatedDistance = 0;
+
     for (let i = 1; i < path.length; i++) {
       const segmentDistance =
         window.google.maps.geometry.spherical.computeDistanceBetween(
@@ -152,6 +156,7 @@ function App() {
     }
     return path[path.length - 1];
   }
+
   function updateOriginInput(position) {
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ location: position }, (results, status) => {
@@ -160,9 +165,11 @@ function App() {
       }
     });
   }
+
   if (!isLoaded) {
     return <SkeletonText />;
   }
+
   return (
     <Flex
       position="relative"
@@ -210,7 +217,12 @@ function App() {
         <HStack spacing={2} justifyContent="space-between">
           <Box flexGrow={1}>
             <Autocomplete>
-              <Input type="text" placeholder="Origin" value="Pleasanton, CA" />
+              <Input
+                type="text"
+                placeholder="Source"
+                value={source}
+                onChange={(e) => setSource(e.target.value)}
+              />
             </Autocomplete>
           </Box>
           <Box flexGrow={1}>
@@ -219,7 +231,6 @@ function App() {
                 type="text"
                 placeholder="Destination"
                 value={destination}
-                onChange={(e) => setDestination(e.target.value)}
               />
             </Autocomplete>
           </Box>
@@ -248,25 +259,22 @@ function App() {
             </Text>
           </HStack>
         )}
-        <>
-          <HStack spacing={2} justifyContent="space-between">
-            <Box flexGrow={1}>
-              <Text>
-                <b>Current Location:</b>
-              </Text>
-              <Autocomplete>
-                <Input
-                  type="text"
-                  placeholder="Origin"
-                  value={origin}
-                  onChange={(e) => setOrigin(e.target.value)}
-                />
-              </Autocomplete>
-            </Box>
-          </HStack>
-        </>
+        <HStack spacing={2} justifyContent="space-between">
+          <Box flexGrow={1}>
+            <Text>
+              <b>Current Location:</b>
+            </Text>
+            <Autocomplete>
+              <Input
+                type="text"
+                placeholder="Origin"
+                value={origin}
+                onChange={(e) => setOrigin(e.target.value)}
+              />
+            </Autocomplete>
+          </Box>
+        </HStack>
       </Box>
-      {/* {!autoRefresh && ( */}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -279,8 +287,8 @@ function App() {
           </ModalBody>
         </ModalContent>
       </Modal>
-      {/* )} */}
     </Flex>
   );
 }
+
 export default App;

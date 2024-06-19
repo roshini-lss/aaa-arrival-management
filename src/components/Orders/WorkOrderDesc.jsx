@@ -49,7 +49,7 @@ const OrderDesc = ({ workOrders }) => {
                             <h3>Previous work order summary</h3>
                         </div>
                         <div>
-                            Flat tyre and the issue was closed on time and the
+                            Flat tire and the issue was closed on time and the
                             customer is happy.
                         </div>
                     </div>
