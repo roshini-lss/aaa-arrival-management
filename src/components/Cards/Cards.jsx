@@ -9,7 +9,6 @@ import allData from "../../Data/all-data.json";
 import { RegionContext } from "../../contexts/RegionContext";
 const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
   const location = useLocation();
-  console.log(card);
   const [isOpen, setIsOpen] = useState(false);
   const [workOrders, setWorkOrders] = useState([]);
   const navigate = useNavigate();
@@ -29,7 +28,6 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
     "Lockout",
   ];
 
-  console.log(card);
   const [expandedRows, setExpandedRows] = useState([]);
   const [toggle, setToggle] = useState(false);
 
@@ -63,8 +61,6 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
   //   console.log({workOrders})
   // },[isOpen])
 
-  console.log(byProblemCodeDatas);
-
   const getInfoByRegion = () => {
     navigate(`/by-region/${cardVal}`);
   };
@@ -74,7 +70,6 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
     setIsOpen(false);
   };
   const handleShow = (title) => {
-    console.log({ region });
     if (location.pathname === "/by-problem-code") {
       setWorkOrders([...probCode.totalWO]);
     }
@@ -88,7 +83,6 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
             item.State === region.val.toUpperCase() &&
             item.description_of_the_problem_code === val
         );
-        console.log({ data });
         setWorkOrders([...workOrders, ...data]);
       }
     });
@@ -100,7 +94,6 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
   };
 
   const handleChange = () => {
-    console.log(location.pathname);
     if (location.pathname === "/by-region") {
       navigate(`/by-region/${cardVal}`);
     } else {
@@ -109,7 +102,6 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
   };
 
   const getRandomColor = (orders) => {
-    console.log(orders);
     if (orders["PTA IN HRS"] !== 0) {
       const colors = ["green", "red", "white"];
       const color = colors[Math.floor(Math.random() * colors.length)];
@@ -118,8 +110,6 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
       return "white";
     }
   };
-
-  console.log(probCode);
 
   return (
     <>
@@ -157,7 +147,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
             </div>
           </div>
         ) : (
-          <div className="data-fields pointer" onClick={handleNavigate}>
+          <div className="data-fields pointer">
             <div className="total-wo">
               Total number of WOs: {card?.totalWO || 0}
             </div>

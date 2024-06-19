@@ -21,7 +21,6 @@ const ProblemCode = () => {
     "Lockout",
   ];
   const { regionNav } = useContext(RegionContext);
-  console.log(regionNav);
   const region = useParams();
   const location = useLocation();
   const regions = region?.val?.toUpperCase();
@@ -54,18 +53,13 @@ const ProblemCode = () => {
     return details;
   };
 
-  const regionDataToPass = Regiondata.filter(
-    (region) => region.title === regionNav
-  );
-
-  console.log(regionDataToPass);
-
+  const regionDataToPass = Regiondata.filter((region) => {
+    return region.title === regionNav;
+  });
   let serviceData = {};
   listData.forEach((item) => {
     serviceData[item] = batteryJump(item);
   });
-
-  console.log(serviceData.Battery_Jump);
 
   const cardsData = [
     {
@@ -161,7 +155,6 @@ const ProblemCode = () => {
     location.pathname === "/by-region" ? { left: "20px" } : { left: "unset" };
   const problemCode = location.pathname === "/by-problem-code";
 
-  console.log(byProblemCodeDatas);
   return (
     <div className="MainDash-Component">
       <div className="main-view-title">VIEW BY - PROBLEM CODE</div>
