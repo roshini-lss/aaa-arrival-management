@@ -6,22 +6,24 @@ import {
   UilPackage,
   UilChart,
 } from "@iconscout/react-unicons";
-import batteryjump from "../Assets/imgs/battery-jump.jpeg";
-import batteryService from "../Assets/imgs/battery-service.jpeg";
-import extricationRecovery from "../Assets/imgs/extrication-recovery.jpeg";
-import flatTyre from "../Assets/imgs/extrication-recovery.jpeg";
-import images from "../Assets/imgs/images.jpeg";
-import towAccident from "../Assets/imgs/tow-accident.jpeg";
-import towMechanic from "../Assets/imgs/two-mechanic.jpeg";
-import lockout from "../Assets/imgs/lockout.jpeg";
-import akImage from "../Assets/imgs/ak-image.png";
-import azImage from "../Assets/imgs/az-image.png";
-import caImage from "../Assets/imgs/ca-image.png";
-import mtImage from "../Assets/imgs/mt-image.png";
-import nvImage from "../Assets/imgs/nv-image.png";
-import utImage from "../Assets/imgs/ut-image.png";
-import wyImage from "../Assets/imgs/yw-image.png";
+// import batteryjump from "../Assets/imgs/battery-jump.jpeg";
+// import batteryService from "../Assets/imgs/battery-service.jpeg";
+// import extricationRecovery from "../Assets/imgs/extrication-recovery.jpeg";
+// import flatTyre from "../Assets/imgs/extrication-recovery.jpeg";
+// import images from "../Assets/imgs/images.jpeg";
+// import towAccident from "../Assets/imgs/tow-accident.jpeg";
+// import towMechanic from "../Assets/imgs/two-mechanic.jpeg";
+// import lockout from "../Assets/imgs/lockout.jpeg";
+// import akImage from "../Assets/imgs/ak-image.png";
+// import azImage from "../Assets/imgs/az-image.png";
+// import caImage from "../Assets/imgs/ca-image.png";
+// import mtImage from "../Assets/imgs/mt-image.png";
+// import nvImage from "../Assets/imgs/nv-image.png";
+// import utImage from "../Assets/imgs/ut-image.png";
+// import wyImage from "../Assets/imgs/yw-image.png";
 import allData from "./all-data.json";
+import { driveImageIds } from "../constants/static-assets";
+import { getDriveImageUrl } from "../utils/url-utils";
 
 const CAData = {
   totalNumberOfOrders: allData.filter((item) => item.State === "CA").length,
@@ -171,56 +173,56 @@ const lockoutTotal = calculateTotalsByDescription(allData, "Lockout");
 export const byProblemCodeDatas = [
   {
     color: "green",
-    img: batteryjump,
+    img: getDriveImageUrl(driveImageIds["battery-jump"]),
     name: "Battery Jump",
     datas: batteryJumpTotal,
     // unassigned: batteryJumpTotal.totalWO.length - batteryJumpTotal.assingedPTA.length,
   },
   {
     color: "green",
-    img: batteryService,
+    img: getDriveImageUrl(driveImageIds["battery-service"]),
     name: "Battery Service",
     datas: batteryServiceTotal,
     // unassigned: batteryServiceTotal.totalWO.length - batteryServiceTotal.assingedPTA.length,
   },
   {
     color: "yellow",
-    img: extricationRecovery,
+    img: getDriveImageUrl(driveImageIds["extrication-recovery"]),
     name: "Extraction Recovery",
     datas: extractionRecoveryTotal,
     // unassigned: batteryJumpTotal.totalWO.length - batteryJumpTotal.assingedPTA.length,
   },
   {
     color: "red",
-    img: flatTyre,
+    img: getDriveImageUrl(driveImageIds["extrication-recovery"]),
     name: "Flat Tire No Spare",
     datas: flatTireTotals,
     // unassigned: flatTireTotals.totalWO.length - flatTireTotals.assingedPTA.length,
   },
   {
     color: "red",
-    img: towAccident,
+    img: getDriveImageUrl(driveImageIds["tow-accident"]),
     name: "Tow Accident",
     datas: towAccidentTotal,
     // unassigned: towAccidentTotal.totalWO.length - towAccidentTotal.assingedPTA.length,
   },
   {
     color: "green",
-    img: images,
+    img: getDriveImageUrl(driveImageIds["images"]),
     name: "Tow Motorcycle",
     datas: towMotorcycleTotal,
     // unassigned: towMotorcycleTotal.totalWO.length - towMotorcycleTotal.assingedPTA.length,
   },
   {
     color: "red",
-    img: towMechanic,
+    img: getDriveImageUrl(driveImageIds["two-mechanic"]),
     name: "Tow Mechanical",
     datas: towMechanicalTotals,
     // unassigned: towMechanicalTotals.totalWO.length - towMechanicalTotals.assingedPTA.length,
   },
   {
     color: "green",
-    img: lockout,
+    img: getDriveImageUrl(driveImageIds["lockout"]),
     name: "Lockout",
     datas: lockoutTotal,
     // unassigned: lockoutTotal.totalWO.length - lockoutTotal.assingedPTA.length,
@@ -284,7 +286,7 @@ export const SideBarDataCMCategories = ["Navigate", "GoTo"];
 export const cardsData = [
   {
     title: "Battery Jump",
-    img: batteryjump,
+    img: getDriveImageUrl(driveImageIds["battery-jump"]),
     totalWO: batteryJumpFunc(),
     assingedPTA: 10,
     delays: 2,
@@ -292,32 +294,32 @@ export const cardsData = [
   },
   {
     title: "Battery Service",
-    img: batteryService,
+    img: getDriveImageUrl(driveImageIds["battery-service"]),
     totalWO: batteryJumpFunc(),
   },
   {
     title: "Extrication Recovery",
-    img: extricationRecovery,
+    img: getDriveImageUrl(driveImageIds["extrication-recovery"]),
   },
   {
     title: "Flat Tyre No Spare",
-    img: flatTyre,
+    img: getDriveImageUrl(driveImageIds["extrication-recovery"]),
   },
   {
     title: "Tow Accident",
-    img: towAccident,
+    img: getDriveImageUrl(driveImageIds["tow-accident"]),
   },
   {
     title: "Tow Motorcycle",
-    img: images,
+    img: getDriveImageUrl(driveImageIds["images"]),
   },
   {
     title: "Tow Mechanical",
-    img: towMechanic,
+    img: getDriveImageUrl(driveImageIds["two-mechanic"]),
   },
   {
     title: "Lockout",
-    img: lockout,
+    img: getDriveImageUrl(driveImageIds["lockout"]),
   },
 ];
 
@@ -325,7 +327,7 @@ export const mapDetails = [
   {
     title: "CA",
     color: "green",
-    img: caImage,
+    img: getDriveImageUrl(driveImageIds["ca-image"]),
     totalWO: CAData.totalNumberOfOrders,
     assingedPTA: CAData.assingedPTA,
     delays: CAData.delays,
@@ -334,7 +336,7 @@ export const mapDetails = [
   {
     title: "NV",
     color: "yellow",
-    img: nvImage,
+    img: getDriveImageUrl(driveImageIds["nv-image"]),
     totalWO: NVData.totalNumberOfOrders,
     assingedPTA: NVData.assingedPTA,
     delays: NVData.delays,
@@ -343,7 +345,7 @@ export const mapDetails = [
   {
     title: "AK",
     color: "green",
-    img: akImage,
+    img: getDriveImageUrl(driveImageIds["ak-image"]),
     totalWO: AKData.totalNumberOfOrders,
     assingedPTA: AKData.assingedPTA,
     delays: AKData.delays,
@@ -352,7 +354,7 @@ export const mapDetails = [
   {
     title: "UT",
     color: "green",
-    img: utImage,
+    img: getDriveImageUrl(driveImageIds["ut-image"]),
     totalWO: UTData.totalNumberOfOrders,
     assingedPTA: UTData.assingedPTA,
     delays: UTData.delays,
@@ -361,7 +363,7 @@ export const mapDetails = [
   {
     title: "AZ",
     color: "red",
-    img: azImage,
+    img: getDriveImageUrl(driveImageIds["az-image"]),
     totalWO: AZData.totalNumberOfOrders,
     assingedPTA: AZData.assingedPTA,
     delays: AZData.delays,
@@ -370,7 +372,7 @@ export const mapDetails = [
   {
     title: "WY",
     color: "red",
-    img: wyImage,
+    img: getDriveImageUrl(driveImageIds["yw-image"]),
     totalWO: WYData.totalNumberOfOrders,
     assingedPTA: WYData.assingedPTA,
     delays: WYData.delays,
@@ -379,7 +381,7 @@ export const mapDetails = [
   {
     title: "MT",
     color: "green",
-    img: mtImage,
+    img: getDriveImageUrl(driveImageIds["mt-image"]),
     totalWO: MTData.totalNumberOfOrders,
     assingedPTA: MTData.assingedPTA,
     delays: MTData.delays,

@@ -2,17 +2,19 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./MainDash.css";
 import Cards from "../Cards/Cards";
-import batteryjump from "../../Assets/imgs/battery-jump.jpeg";
-import batteryService from "../../Assets/imgs/battery-service.jpeg";
-import extricationRecovery from "../../Assets/imgs/extrication-recovery.jpeg";
-import flatTyre from "../../Assets/imgs/extrication-recovery.jpeg";
-import images from "../../Assets/imgs/images.jpeg";
-import towAccident from "../../Assets/imgs/tow-accident.jpeg";
-import towMechanic from "../../Assets/imgs/two-mechanic.jpeg";
-import lockout from "../../Assets/imgs/lockout.jpeg";
+// import batteryjump from "../../Assets/imgs/battery-jump.jpeg";
+// import batteryService from "../../Assets/imgs/battery-service.jpeg";
+// import extricationRecovery from "../../Assets/imgs/extrication-recovery.jpeg";
+// import flatTyre from "../../Assets/imgs/extrication-recovery.jpeg";
+// import images from "../../Assets/imgs/images.jpeg";
+// import towAccident from "../../Assets/imgs/tow-accident.jpeg";
+// import towMechanic from "../../Assets/imgs/two-mechanic.jpeg";
+// import lockout from "../../Assets/imgs/lockout.jpeg";
 import allData from "../../Data/all-data.json";
 import { SelectedContext } from "../../contexts/SelectedContext";
 import { byProblemCodeDatas } from "../../Data/Data";
+import { getDriveImageUrl } from "../../utils/url-utils";
+import { driveImageIds } from "../../constants/static-assets";
 
 const ProblemCode = () => {
   const listData = [
@@ -73,7 +75,7 @@ const ProblemCode = () => {
     {
       title: "Battery Jump",
       color: "green",
-      img: batteryjump,
+      img: getDriveImageUrl(driveImageIds["battery-jump"]),
       totalWO: serviceData.Battery_Jump.totalNumberOfOrders || 0,
       assingedPTA: serviceData.Battery_Jump.assingedPTA || 0,
       delays: serviceData.Battery_Jump.delays || 0,
@@ -84,7 +86,7 @@ const ProblemCode = () => {
     {
       title: "Battery Service",
       color: "green",
-      img: batteryService,
+      img: getDriveImageUrl(driveImageIds["battery-service"]),
       totalWO: serviceData.Battery_Service.totalNumberOfOrders || 0,
       assingedPTA: serviceData.Battery_Service.assingedPTA || 0,
       delays: serviceData.Battery_Service.delays,
@@ -95,7 +97,7 @@ const ProblemCode = () => {
     {
       title: "Extrication Recovery",
       color: "yellow",
-      img: extricationRecovery,
+      img: getDriveImageUrl(driveImageIds["extrication-recovery"]),
       totalWO: serviceData.Extrication_Recovery.totalNumberOfOrders,
       assingedPTA: serviceData.Extrication_Recovery.assingedPTA,
       delays: serviceData.Extrication_Recovery.delays,
@@ -106,7 +108,7 @@ const ProblemCode = () => {
     {
       title: "Flat Tire No Spare",
       color: "red",
-      img: flatTyre,
+      img: getDriveImageUrl(driveImageIds["flat-tyre"]),
       totalWO: serviceData.Flat_Tire_No_Spare.totalNumberOfOrders,
       assingedPTA: serviceData.Flat_Tire_No_Spare.assingedPTA,
       delays: serviceData.Flat_Tire_No_Spare.delays,
@@ -117,7 +119,7 @@ const ProblemCode = () => {
     {
       title: "Tow Accident",
       color: "red",
-      img: towAccident,
+      img: getDriveImageUrl(driveImageIds["tow-accident"]),
       totalWO: serviceData.Tow_Accident.totalNumberOfOrders,
       assingedPTA: serviceData.Tow_Accident.assingedPTA,
       delays: serviceData.Tow_Accident.delays,
@@ -128,7 +130,7 @@ const ProblemCode = () => {
     {
       title: "Tow Motorcycle",
       color: "green",
-      img: images,
+      img: getDriveImageUrl(driveImageIds["images"]),
       totalWO: serviceData.Tow_Motorcycle.totalNumberOfOrders,
       assingedPTA: serviceData.Tow_Motorcycle.assingedPTA,
       delays: serviceData.Tow_Motorcycle.delays,
@@ -139,7 +141,7 @@ const ProblemCode = () => {
     {
       title: "Tow Mechanical",
       color: "red",
-      img: towMechanic,
+      img: getDriveImageUrl(driveImageIds["two-mechanic"]),
       totalWO: serviceData.Tow_Mechanical.totalNumberOfOrders,
       assingedPTA: serviceData.Tow_Mechanical.assingedPTA,
       delays: serviceData.Tow_Mechanical.delays,
@@ -150,7 +152,7 @@ const ProblemCode = () => {
     {
       title: "Lockout",
       color: "green",
-      img: lockout,
+      img: getDriveImageUrl(driveImageIds["lockout"]),
       totalWO: serviceData.Lockout.totalNumberOfOrders,
       assingedPTA: serviceData.Lockout.assingedPTA,
       delays: serviceData.Lockout.delays,

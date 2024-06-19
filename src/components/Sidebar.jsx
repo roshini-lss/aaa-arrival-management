@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./Sidebar.css";
-import Logo from "../Assets/imgs/aaa-logo.png";
+// import Logo from "../Assets/imgs/aaa-logo.png";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 import {
   SideBarDataCMAltered,
@@ -14,6 +14,8 @@ import { motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SelectedContext } from "../contexts/SelectedContext";
 import { UserContext } from "../contexts/UserContext";
+import { driveImageIds } from "../constants/static-assets";
+import { getDriveImageUrl } from "../utils/url-utils";
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -63,7 +65,7 @@ const Sidebar = () => {
       >
         {/* logo */}
         <div className="logo">
-          <img src={Logo} alt="logo" />
+          <img src={getDriveImageUrl(driveImageIds["aaa-logo"])} alt="logo" />
           {/* <span>
             A<span>A</span>A
           </span> */}
