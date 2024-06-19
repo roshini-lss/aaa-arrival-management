@@ -55,6 +55,7 @@ const Order = () => {
             <div className="go-container">
               {/* <div className="order-title">Enter Work Order:</div> */}
               <input
+                className="order-input"
                 type="number"
                 name="workorder"
                 placeholder="Type Work Order Number..."
