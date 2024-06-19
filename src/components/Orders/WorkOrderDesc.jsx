@@ -4,9 +4,15 @@ import "./WorkOrderDesc.css"
 const OrderDesc = ({ workOrders }) => {
     const item = workOrders[0]
 
-    const viewMap = () => {
-        window.open(`/view-map`, "_blank")
-    }
+    const stateToPass = {
+      latitude: item.breakdown_location_latitude,
+      longitude: item.breakdown_location_longitude,
+  }
+
+  const viewMap = () => {
+      const queryString = new URLSearchParams(stateToPass).toString()
+      window.open(`/view-map?${queryString}`, "_blank")
+  }
 
     return (
         <>

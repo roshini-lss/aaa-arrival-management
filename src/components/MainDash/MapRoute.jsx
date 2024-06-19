@@ -26,7 +26,7 @@ import {
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import { MdRefresh } from "react-icons/md";
-
+import { useLocation } from "react-router-dom";
 const center = { lat: 48.8584, lng: 2.2945 };
 
 function App() {
@@ -48,11 +48,29 @@ function App() {
   const [destination, setDestination] = useState(
     "4900 Hopyard Rd STE 100, Pleasanton, California"
   );
+  const location = useLocation()
 
-  const calculateRouteIntervalRef = useRef(null);
+  const params = new URLSearchParams(location.search)
+  const state = {
+      dest_latitude: params.get("latitude"),
+      dest_longitude: params.get("longitude"),
+  }
 
-  async function calculateRoute() {
-    if (!source || !destination) {
+
+
+  const calculateRouteIntervalRef = useRef(null); // Ref to hold interval ID
+  async function calculateRoute(coord) {
+    console.log({coord})
+    const destination = {
+        lat: parseFloat(
+            coord?.destination?.lat 
+        ),
+        lng: parseFloat(
+            coord?.destination?.lng 
+        ),
+    }
+
+    if (!origin || !destination) {
       return;
     }
 
@@ -98,11 +116,26 @@ function App() {
   }
 
   useEffect(() => {
-    if (isLoaded && destination) {
-      calculateRoute();
-    }
-  }, [isLoaded, destination]);
+    console.log(state.dest_latitude != null, state.dest_longitude != null)
+    if (
+        isLoaded &&
+        state.dest_latitude != null &&
+        state.dest_longitude != null
+    )
+        calculateRoute({
+            destination: {
+                lat: state.dest_latitude,
+                lng: state.dest_longitude,
+            },
+        })
+}, [state.dest_latitude, state.dest_longitude, isLoaded])
 
+
+//   useEffect(() => {
+//     if (isLoaded && destination) {
+//       calculateRoute();
+//     }
+//   }, [isLoaded, destination]);
   function clearRoute() {
     calculateRoute();
   }
@@ -217,12 +250,7 @@ function App() {
         <HStack spacing={2} justifyContent="space-between">
           <Box flexGrow={1}>
             <Autocomplete>
-              <Input
-                type="text"
-                placeholder="Source"
-                value={source}
-                onChange={(e) => setSource(e.target.value)}
-              />
+              <Input type="text" placeholder="Origin" value="Pleasanton, CA" disabled={true} title="Origin"/>
             </Autocomplete>
           </Box>
           <Box flexGrow={1}>
@@ -230,18 +258,22 @@ function App() {
               <Input
                 type="text"
                 placeholder="Destination"
-                value={destination}
+                title="Destination"
+                value={`${state.dest_latitude},${state.dest_longitude}`}
+                disabled={true}
+                onChange={(e) => setDestination(e.target.value)}
               />
             </Autocomplete>
           </Box>
           <ButtonGroup>
-            <Button colorScheme="pink" type="submit" onClick={calculateRoute}>
+            <Button colorScheme="pink" type="submit" onClick={calculateRoute} isDisabled={true} title="This feature will be enabled in the future">
               Calculate Time
             </Button>
             <IconButton
               aria-label="center back"
               icon={<MdRefresh />}
               onClick={clearRoute}
+              isDisabled={true} title="This feature will be enabled in the future"
             />
           </ButtonGroup>
         </HStack>
@@ -259,21 +291,25 @@ function App() {
             </Text>
           </HStack>
         )}
-        <HStack spacing={2} justifyContent="space-between">
-          <Box flexGrow={1}>
-            <Text>
-              <b>Current Location:</b>
-            </Text>
-            <Autocomplete>
-              <Input
-                type="text"
-                placeholder="Origin"
-                value={origin}
-                onChange={(e) => setOrigin(e.target.value)}
-              />
-            </Autocomplete>
-          </Box>
-        </HStack>
+        <>
+          <HStack spacing={2} justifyContent="space-between">
+            <Box flexGrow={1}>
+              <Text>
+                <b>Current Location:</b>
+              </Text>
+              <Autocomplete>
+                <Input
+                  type="text"
+                  placeholder="Origin"
+                  value={origin}
+                  onChange={(e) => setOrigin(e.target.value)}
+                  disabled={true}
+                  title="Current truck location"
+                />
+              </Autocomplete>
+            </Box>
+          </HStack>
+        </>
       </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
