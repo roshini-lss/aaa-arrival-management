@@ -182,7 +182,7 @@ const ProblemCode = () => {
         </div>
       ) : (
         <div className="MainDash" style={style}>
-          {regionDataToPass[0].problemCode.map((card, id) => {
+          {regionDataToPass?.[0]?.problemCode.map((card, id) => {
             return <Cards card={card} key={id} />;
           })}
         </div>
