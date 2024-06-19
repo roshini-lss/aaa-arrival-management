@@ -1,18 +1,30 @@
 import React from "react"
 import "./WorkOrderDesc.css"
+import { ordersHistory } from "../../Data/Data"
 
 const OrderDesc = ({ workOrders }) => {
     const item = workOrders[0]
 
-    const stateToPass = {
-      latitude: item.breakdown_location_latitude,
-      longitude: item.breakdown_location_longitude,
-  }
+    const history = ordersHistory.filter(
+        (data) => data.workOrderNo === String(item.work_order_number)
+    )
 
-  const viewMap = () => {
-      const queryString = new URLSearchParams(stateToPass).toString()
-      window.open(`/view-map?${queryString}`, "_blank")
-  }
+    history.sort((a, b) => {
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+        return dateB - dateA
+    })
+    console.log(history)
+
+    const stateToPass = {
+        latitude: item.breakdown_location_latitude,
+        longitude: item.breakdown_location_longitude,
+    }
+
+    const viewMap = () => {
+        const queryString = new URLSearchParams(stateToPass).toString()
+        window.open(`/view-map?${queryString}`, "_blank")
+    }
 
     return (
         <>
@@ -55,13 +67,26 @@ const OrderDesc = ({ workOrders }) => {
                             <h3>Previous work order summary</h3>
                         </div>
                         <div>
-                            Flat tire and the issue was closed on time and the
-                            customer is happy.
+                            {history.map((data) => {
+                                return (
+                                    <p
+                                        className={
+                                            data.positive
+                                                ? "positive review"
+                                                : "negative review"
+                                        }
+                                    >
+                                        {`${data.date} - ${data.review}`}{" "}
+                                    </p>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
             ) : (
-                <div className="desc-none">{alert("Not Found, Try valid work order number")}</div>
+                <div className="desc-none">
+                    {alert("Not Found, Try valid work order number")}
+                </div>
             )}
         </>
     )
