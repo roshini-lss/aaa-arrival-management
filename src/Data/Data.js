@@ -860,7 +860,7 @@ export const Regiondata = [
     img: getDriveImageUrl(driveImageIds["az-image"]),
     totalWO: 1598,
     assingedPTA: 1561,
-    delays: 83,
+    delays: 18,
     unassigned: 37,
     problemCode: [
       {
@@ -943,7 +943,7 @@ export const Regiondata = [
     img: getDriveImageUrl(driveImageIds["yw-image"]),
     totalWO: 467,
     assingedPTA: 452,
-    delays: 18,
+    delays: 83,
     unassigned: 15,
     problemCode: [
       {
