@@ -17,7 +17,6 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { FaTimes } from "react-icons/fa";
 import {
   useJsApiLoader,
   GoogleMap,
@@ -42,7 +41,6 @@ function App() {
   const [origin, setOrigin] = useState("Pleasanton, CA");
   const [originPosition, setOriginPosition] = useState(null);
   const [truckPosition, setTruckPosition] = useState(null);
-  const [autoRefresh, setAutoRefresh] = useState(false);
   const [destination, setDestination] = useState(
     "4900 Hopyard Rd STE 100, Pleasanton, California"
   );
@@ -77,7 +75,9 @@ function App() {
         const durationText = directionsResults.routes[0].legs[0].duration.text;
         const minutes = parseInt(durationText); // Extract the number of minutes
         const durationInSeconds = minutes * 60;
-        setDuration(directionsResults.routes[0].legs[0].duration.text);
+        console.log(directionsResults.routes[0].legs[0].duration.text);
+        const durationInMinutes = parseDurationToMinutes(durationText);
+        setDuration(`${durationInMinutes} mins`);
         const googleDurationInSeconds =
           directionsResults.routes[0].legs[0].duration.value;
         const predictedDurationInSeconds = googleDurationInSeconds + 60 * 20;
@@ -100,6 +100,21 @@ function App() {
       }
     });
   }
+  function parseDurationToMinutes(durationText) {
+    let totalMinutes = 0;
+    const hoursMatch = durationText.match(/(\d+)\s*hour/);
+    const minutesMatch = durationText.match(/(\d+)\s*min/);
+
+    if (hoursMatch) {
+      totalMinutes += parseInt(hoursMatch[1]) * 60;
+    }
+    if (minutesMatch) {
+      totalMinutes += parseInt(minutesMatch[1]);
+    }
+
+    return totalMinutes;
+  }
+
   useEffect(() => {
     console.log(state.dest_latitude != null, state.dest_longitude != null);
     if (isLoaded && state.dest_latitude != null && state.dest_longitude != null)
@@ -237,7 +252,7 @@ function App() {
               />
             </Autocomplete>
           </Box>
-          <ButtonGroup>
+          {/* <ButtonGroup>
             <Button
               colorScheme="pink"
               type="submit"
@@ -254,7 +269,7 @@ function App() {
               isDisabled={true}
               title="This feature will be enabled in the future"
             />
-          </ButtonGroup>
+          </ButtonGroup> */}
         </HStack>
         {distance && (
           <HStack spacing={4} mt={4} justifyContent="space-between">
