@@ -302,7 +302,7 @@ export const cardsData = [
     img: getDriveImageUrl(driveImageIds["extrication-recovery"]),
   },
   {
-    title: "Flat Tyre No Spare",
+    title: "Flat Tire No Spare",
     img: getDriveImageUrl(driveImageIds["extrication-recovery"]),
   },
   {
@@ -558,7 +558,7 @@ export const Regiondata = [
         unassigned: 30,
       },
       {
-        title: "Flat Tyre No Spare",
+        title: "Flat Tire No Spare",
         color: "red",
         img: getDriveImageUrl(driveImageIds["flat-tyre"]),
         totalWO: 180,
@@ -642,7 +642,7 @@ export const Regiondata = [
         unassigned: 20,
       },
       {
-        title: "Flat Tyre No Spare",
+        title: "Flat Tire No Spare",
         color: "red",
         img: getDriveImageUrl(driveImageIds["flat-tyre"]),
         totalWO: 150,
@@ -725,7 +725,7 @@ export const Regiondata = [
         unassigned: 30,
       },
       {
-        title: "Flat Tyre No Spare",
+        title: "Flat Tire No Spare",
         color: "red",
         img: getDriveImageUrl(driveImageIds["flat-tyre"]),
         totalWO: 150,
@@ -891,7 +891,7 @@ export const Regiondata = [
         unassigned: 5,
       },
       {
-        title: "Flat Tyre No Spare",
+        title: "Flat Tire No Spare",
         color: "red",
         img: getDriveImageUrl(driveImageIds["flat-tyre"]),
         totalWO: 127,
@@ -974,7 +974,7 @@ export const Regiondata = [
         unassigned: 2,
       },
       {
-        title: "Flat Tyre No Spare",
+        title: "Flat Tire No Spare",
         color: "red",
         img: getDriveImageUrl(driveImageIds["extrication-recovery"]),
         totalWO: 30,
@@ -1057,7 +1057,7 @@ export const Regiondata = [
         unassigned: 3,
       },
       {
-        title: "Flat Tyre No Spare",
+        title: "Flat Tire No Spare",
         color: "red",
         img: getDriveImageUrl(driveImageIds["flat-tyre"]),
         totalWO: 60,
