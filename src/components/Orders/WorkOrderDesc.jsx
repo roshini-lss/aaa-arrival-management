@@ -55,8 +55,9 @@ const OrderDesc = ({ workOrders }) => {
                             <h6>{item.breakdown_location_longitude}</h6>
                         </div>
                         <div className="desc-col">
-                            <h3 className="desc-sub">Trucks Assigned</h3>
-                            <h6>{item.pta_truck}</h6>
+                            <h3 className="desc-sub">Truck Assigned</h3>
+                            {/* <h6>{item.pta_truck}</h6> */}
+                            <h6>{"Yes"}</h6>
                         </div>
                         <div className="desc-col">
                             <h3 className="desc-sub">Truck Predicted</h3>
