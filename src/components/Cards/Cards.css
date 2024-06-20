@@ -99,10 +99,10 @@
   color: darkmagenta;
 }
 
-.data-table-row-red td{
-  background-color: #d96a6a !important;
+.data-table-row-red td {
+  /* background-color: #d96a6a !important; */
 }
 
-.data-table-row-green td{
-  background-color: #548f54 !important;
+.data-table-row-green td {
+  /* background-color: #548f54 !important; */
 }
