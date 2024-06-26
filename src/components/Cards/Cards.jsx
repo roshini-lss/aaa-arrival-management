@@ -7,6 +7,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import allData from "../../Data/all-data.json";
 import { RegionContext } from "../../contexts/RegionContext";
+import Table from "../MainDash/Table";
+import ReactDOM from 'react-dom';
 const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -98,8 +100,43 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
       navigate(`/by-region/${cardVal}`);
     } else {
       probCode ? handleShow(probCode.title) : handleShow(card.title);
+      if(workOrders.length > 0){
+      // const serializedParams = encodeURIComponent(JSON.stringify(workOrders));
+      // const url = `/table-view?orderParams=${serializedParams}`;
+      // window.open(url, '_blank');
+        handleNavigates()
+      }
     }
   };
+  const handleNavigates = (orderParams) => {
+    const newWindow = window.open('/table-view', '_blank');
+    if (newWindow) {
+      // Wait for the new window to fully load before sending the message
+      newWindow.onload = () => {
+        newWindow.postMessage({ workOrders }, '*'); // The '*' wildcard allows messages from any origin
+      };
+    }
+  };
+
+  // const handleClick = () => {
+  //   const newWindow = window.open('', '', 'width=600,height=400');
+  //   newWindow.document.write(`
+  //   <!DOCTYPE html>
+  //   <html>
+  //     <head>
+  //       <title>New Window</title>
+  //     </head>
+  //     <body>
+  //       <div id="root"></div>
+  //     </body>
+  //   </html>
+  // `);
+  //   newWindow.document.addEventListener('DOMContentLoaded', () => {
+  //     ReactDOM.render(<Table workOrders={workOrders}/>, newWindow.document.getElementById('root'));
+  //   });
+  // }
+
+  console.log(location.pathname, workOrders);
 
   const getRandomColor = (orders) => {
     if (orders["PTA IN HRS"] !== 0) {
