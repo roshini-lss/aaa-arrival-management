@@ -175,6 +175,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                   <tr>
                     <th>Order Number</th>
                     <th>Status</th>
+                    <th>Assigned/ Unassigned</th>
                     <th>Latitude</th>
                     <th>Longitude</th>
                     <th>Time Taken</th>
@@ -189,7 +190,20 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                       className={`data-table-row-${getRandomColor(orders)}`}
                     >
                       <td>{orders.work_order_number}</td>
-                      <td>{orders["PTA IN HRS"] === 0 ? <>U</> : <>A</>}</td>
+                      <td>
+                        <div
+                          className="status-signal"
+                          style={{
+                            backgroundColor:
+                              orders.Diff > -10
+                                ? "green"
+                                : orders.Diff > -13
+                                ? "yellow"
+                                : "red",
+                          }}
+                        ></div>
+                      </td>
+                      <td className="status">{orders["PTA IN HRS"] === 0 ? <>U</> : <>A</>}</td>
                       <td>{orders.breakdown_location_latitude}</td>
                       <td>{orders.breakdown_location_longitude}</td>
                       <td>{orders.pta_truck}</td>

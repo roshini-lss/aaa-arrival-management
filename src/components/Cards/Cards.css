@@ -106,3 +106,17 @@
 .data-table-row-green td {
   /* background-color: #548f54 !important; */
 }
+
+.status-signal {
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 30%;
+}
+
+.status{
+  display: flex;
+  justify-content: center;
+}
