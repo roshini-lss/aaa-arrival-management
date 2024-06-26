@@ -98,7 +98,20 @@
     font-weight: bold;
     color: darkmagenta;
 }
+/* .table.table-width{
+  width: 100vw;
+} */
 
+
+.table-view-container {
+  /* border: 1px solid; */
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding:  30px;
+  padding-right: 65px; */
+}
 .data-table-row-red td {
     /* background-color: #d96a6a !important; */
 }

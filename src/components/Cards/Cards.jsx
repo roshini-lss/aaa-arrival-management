@@ -55,26 +55,9 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
         }
     }
 
-    //  window.location.reload()
     useEffect(() => {
         regionParams(region)
-        //  debugger
-        //   const batteryJump = JSON.parse(localStorage.getItem('batteryJump')) || {};
-        //   console.log(batteryJump)
-        //   // setData((prev) => {[...prev, ...{totalWO:batteryJump.totalNumberOfOrders}]})
-        //   // window.location.reload()
-        //   // localStorage.removeItem('batteryJump');
     }, [cardVal])
-
-    // useEffect(() => {
-    //   listData.map((val) => {
-    //     const valData = val.toLowerCase()
-    //     if(title.includes(valData)){
-    //       workOrders = workOrders.push(allData.filter((item) => item.State === region && item.description_of_the_problem_code === val))
-    //     }
-    //   })
-    //   console.log({workOrders})
-    // },[isOpen])
 
     const getInfoByRegion = () => {
         navigate(`/by-region/${cardVal}`)
@@ -109,11 +92,21 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
         setRegionNav(card?.title)
     }
 
-    const handleChange = () => {
+    const handleClick = () => {
         if (location.pathname === "/by-region") {
             navigate(`/by-region/${cardVal}`)
         } else {
             probCode ? handleShow(probCode.title) : handleShow(card.title)
+        }
+    }
+
+    const handleRightClick = (e) => {
+        e.preventDefault()
+        const newWindow = window.open("/table-view", "_blank")
+        if (newWindow) {
+            newWindow.onload = () => {
+                newWindow.postMessage({ workOrders }, "*")
+            }
         }
     }
 
@@ -145,6 +138,13 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
         }
     }
 
+    const handleChange = () => {
+        if (location.pathname === "/by-region") {
+            navigate(`/by-region/${cardVal}`)
+        } else {
+            probCode ? handleShow(probCode.title) : handleShow(card.title)
+        }
+    }
     const handleSelectChange = (selectedOptions) => {
         setSelectedOptions(selectedOptions)
         // You can perform any additional logic here based on selectedOptions
@@ -162,7 +162,11 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
 
     return (
         <>
-            <div className="card-container" onClick={handleChange}>
+            <div
+                className="card-container"
+                onClick={handleChange}
+                onContextMenu={handleRightClick}
+            >
                 <div className="status-indicator-container">
                     <div
                         className="status-indicator"

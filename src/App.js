@@ -6,6 +6,7 @@ import Region from "./components/MainDash/Region";
 import Login from "./components/Login/Login";
 import Order from "./components/Orders/WorkOrder";
 import MapRoute from "./components/MainDash/MapRoute";
+import Table from "./components/MainDash/Table";
 function App() {
   const location = useLocation();
   console.log(location.pathname);
@@ -21,7 +22,7 @@ function App() {
       >
         {location.pathname !== "/login" &&
           location.pathname !== "/" &&
-          location.pathname !== "/view-map" && <Sidebar />}
+          location.pathname !== "/view-map" && location.pathname !== "/table-view" && <Sidebar />}
         <Routes>
           <Route index element={<Login />} />
           <Route path="/by-region" element={<Region />} />
@@ -30,6 +31,9 @@ function App() {
           <Route path="/by-region/:val" element={<ProblemCode />} />
           <Route path="/call-management-orders" element={<Order />} />
           <Route path="/view-map" element={<MapRoute />} />
+        </Routes>
+        <Routes>
+          <Route path="/table-view" element={<Table />}/>
         </Routes>
       </div>
     </div>
