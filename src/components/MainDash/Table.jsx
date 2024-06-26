@@ -29,6 +29,7 @@ const Table = () => {
                   <tr>
                     <th>Order Number</th>
                     <th>Status</th>
+                    <th>Assigned/ Unassigned</th>
                     <th>Latitude</th>
                     <th>Longitude</th>
                     <th>Time Taken</th>
@@ -43,6 +44,19 @@ const Table = () => {
                       className={`data-table-row`}
                     >
                       <td>{orders.work_order_number}</td>
+                      <td>
+                        <div
+                          className="status-signal"
+                          style={{
+                            backgroundColor:
+                              orders.Diff > -10
+                                ? "green"
+                                : orders.Diff > -13
+                                ? "yellow"
+                                : "red",
+                          }}
+                        ></div>
+                      </td>
                       <td>{orders["PTA IN HRS"] === 0 ? <>U</> : <>A</>}</td>
                       <td>{orders.breakdown_location_latitude}</td>
                       <td>{orders.breakdown_location_longitude}</td>
