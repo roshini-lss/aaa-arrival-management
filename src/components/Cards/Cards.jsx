@@ -123,7 +123,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
     const handleFilter = (type) => {
         console.log({ type })
         switch (type) {
-            case "Low":
+            case "High":
                 return workOrdersCopy.filter(
                     (workOrder) => workOrder.Diff < -13
                 )
@@ -131,9 +131,9 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                 return workOrdersCopy.filter((workOrder) => {
                     return workOrder.Diff < -10 && workOrder.Diff > -14
                 })
-            case "High":
+            case "Low":
                 return workOrdersCopy.filter(
-                    (workOrder) => workOrder.Diff > -10
+                    (workOrder) => workOrder.Diff >= -10
                 )
         }
     }
@@ -230,7 +230,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                         size="lg"
                     >
                         <Modal.Header closeButton className="filter-area">
-                            <Modal.Title>Details</Modal.Title>
+                            <Modal.Title>Risk</Modal.Title>
                             <div className="test">
                                 <Select
                                     closeMenuOnSelect={true}
@@ -332,7 +332,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                         size="lg"
                     >
                         <Modal.Header closeButton className="filter-area">
-                            <Modal.Title>Details</Modal.Title>
+                            <Modal.Title>Risk</Modal.Title>
                             <div className="test">
                                 <Select
                                     closeMenuOnSelect={false}
