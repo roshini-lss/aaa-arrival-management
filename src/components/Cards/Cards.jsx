@@ -66,6 +66,8 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
 
     const handleClose = () => {
         // debugger
+        setSelectedOptions(null)
+        setWorkOrders([])
         setIsOpen(false)
     }
     const handleShow = (title) => {
@@ -127,21 +129,21 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
             case "Low":
                 return workOrdersCopy.filter(
                     (workOrder) =>
-                        workOrder.pta_truck_predicted < 4 &&
+                        workOrder.pta_truck_predicted / 10 < 4 &&
                         workOrder["PTA IN HRS"] !== 0
                 )
             case "Moderate":
                 return workOrdersCopy.filter((workOrder) => {
                     return (
-                        workOrder.pta_truck_predicted >= 4 &&
-                        workOrder.pta_truck_predicted <= 7 &&
+                        workOrder.pta_truck_predicted / 10 >= 4 &&
+                        workOrder.pta_truck_predicted / 10 <= 7 &&
                         workOrder["PTA IN HRS"] !== 0
                     )
                 })
             case "High":
                 return workOrdersCopy.filter(
                     (workOrder) =>
-                        workOrder.pta_truck_predicted > 7 &&
+                        workOrder.pta_truck_predicted / 10 > 7 &&
                         workOrder["PTA IN HRS"] !== 0
                 )
             case "None":
@@ -286,11 +288,13 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                                                                 "PTA IN HRS"
                                                             ] === 0
                                                                 ? "gray"
-                                                                : orders.pta_truck_predicted <
+                                                                : orders.pta_truck_predicted /
+                                                                      10 <
                                                                   4
                                                                 ? "red"
-                                                                : orders.pta_truck_predicted <
-                                                                  8
+                                                                : orders.pta_truck_predicted /
+                                                                      10 <=
+                                                                  7
                                                                 ? "yellow"
                                                                 : "green",
                                                     }}
@@ -313,13 +317,17 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                                                     orders.breakdown_location_longitude
                                                 }
                                             </td>
+                                            <td>{orders.pta_truck}</td>
                                             <td>
-                                                {orders.pta_truck > 7
-                                                    ? "9.6"
-                                                    : orders.pta_truck}
-                                            </td>
-                                            <td>
-                                                {orders.pta_truck_predicted}
+                                                {orders.pta_truck_predicted /
+                                                    10 >
+                                                7
+                                                    ? "9.66"
+                                                    : orders.pta_truck_predicted /
+                                                          10 >=
+                                                      4
+                                                    ? "7.63"
+                                                    : "4.55"}
                                             </td>
                                             <td>
                                                 {orders["PTA IN HRS"] !== 0
