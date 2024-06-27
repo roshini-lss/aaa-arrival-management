@@ -111,11 +111,9 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
             order.pta_truck_predicted / 10 <= 7
           ) {
             if (redRenderCount.current > 0) {
-              debugger;
               order.pta_truck_predicted = 46.3;
               redRenderCount.current = redRenderCount.current - 1;
             } else {
-              debugger;
               if (order.pta_truck_predicted / 10 < 5) {
                 order.pta_truck_predicted = 96.6;
               }
@@ -219,8 +217,8 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
           <td className="status">
             {orders["PTA IN HRS"] === 0 ? <>U</> : <>A</>}
           </td>
-          <td>{orders.breakdown_location_latitude}</td>
-          <td>{orders.breakdown_location_longitude}</td>
+          <td className="ellipsis" title={orders.breakdown_location_address}>{orders.breakdown_location_address}</td>
+          <td className="ellipsis" title={orders.mechanic_location_address}>{orders.mechanic_location_address}</td>
           <td>{orders.pta_truck}</td>
           <td>
             {orders.pta_truck_predicted / 10 > 7
@@ -321,8 +319,8 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                     <th>Order Number</th>
                     <th>Status</th>
                     <th>Assigned/ Unassigned</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
+                    <th>Breakdown Location Address</th>
+                    <th>Mechanic Location Address</th>
                     <th>Time Taken</th>
                     <th>Time Predicted</th>
                     <th>PTA in Mins</th>
