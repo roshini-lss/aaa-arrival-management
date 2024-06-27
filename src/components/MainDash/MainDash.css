@@ -25,14 +25,14 @@
 
 .main-view-title{
     font-family: Vollkorn;
-    display: flex;
+    /* display: flex;
     justify-content: center;
     position: relative;
     /* left: 7rem; */
-    top: 3rem;
+    /* top: 3rem;  */
     font-size: 21px;
     font-weight: bold;
-    margin-bottom: 11px;
+    /* margin-bottom: 11px; */
 }
 
 .view-title{
@@ -64,4 +64,54 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.title-chart-container {
+    /* border:  1px solid; */
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    width: 49%;
+    justify-content: space-evenly;
+    margin-right: 10rem;
+}
+
+button.view-chart-button {
+    /* border: 1px solid; */
+    padding: 2px 6px;
+    border-radius: 11px;
+    box-shadow: 0px 0px 4px #aaa;
+    background: white;
+    cursor: pointer;
+    color: #6f6fde;
+    font-weight: bold;
+    display: flex;
+    gap: 9px;
+    align-items: center;
+}
+
+.modal-body.modal-body {
+    /* border: 1px solid; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 31px;
+    justify-content: center;
+}
+
+.pie-container {
+    /* border: 1px solid; */
+    height: 16rem;
+    /* display: flex; */
+    width: 47%;
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+}
+.pie-chart {
+    height: 100%;
+}
+.label {
+    color: #6f6fde;
 }

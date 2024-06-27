@@ -83,11 +83,11 @@ function App() {
         const predictedDurationInSeconds = googleDurationInSeconds + 60 * 20;
         setPredictedDuration(predictedDurationInSeconds);
         setTruckPosition(directionsResults.routes[0].overview_path[0]);
-        animateTruck(
-          directionsResults.routes[0].overview_path,
-          predictedDurationInSeconds
-          // durationInSeconds
-        );
+        // animateTruck(
+        //   directionsResults.routes[0].overview_path,
+        //   predictedDurationInSeconds
+        //   // durationInSeconds
+        // );
         setDistance(directionsResults.routes[0].legs[0].distance.text);
         onOpen();
         // Check if destination reached

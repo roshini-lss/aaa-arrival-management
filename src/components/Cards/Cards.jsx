@@ -20,6 +20,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
     const cardVal = card?.title.toLowerCase()
     const [coloredCount, setColoredCount] = useState(0)
     const { regionNav, setRegionNav } = useContext(RegionContext)
+    const [navigateToTable, setNavigateToTable] = useState(false)
     const region = useParams()
     const listData = [
         "Battery_Jump",
@@ -60,6 +61,13 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
         regionParams(region)
     }, [cardVal])
 
+    useEffect(() => {
+        if (navigateToTable && workOrders.length > 0) {
+            navigate(`/table-view`, { state: workOrders })
+            setNavigateToTable(false)
+        }
+    }, [navigateToTable, workOrders, navigate])
+
     const getInfoByRegion = () => {
         navigate(`/by-region/${cardVal}`)
     }
@@ -91,26 +99,16 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
         setIsOpen(true)
     }
 
-    const handleNavigate = () => {
-        setRegionNav(card?.title)
-    }
-
-    const handleClick = () => {
-        if (location.pathname === "/by-region") {
-            navigate(`/by-region/${cardVal}`)
-        } else {
-            probCode ? handleShow(probCode.title) : handleShow(card.title)
-        }
-    }
-
     const handleRightClick = (e) => {
         e.preventDefault()
-        const newWindow = window.open("/table-view", "_blank")
-        if (newWindow) {
-            newWindow.onload = () => {
-                newWindow.postMessage({ workOrders }, "*")
-            }
-        }
+        // const newWindow = window.open("/table-view", "_blank")
+        // if (newWindow) {
+        //     newWindow.onload = () => {
+        //         newWindow.postMessage({ workOrders }, "*")
+        //     }
+        // }
+        probCode ? handleShow(probCode.title) : handleShow(card.title)
+        setNavigateToTable(true)
     }
 
     const getRandomColor = (orders) => {
@@ -163,6 +161,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
             probCode ? handleShow(probCode.title) : handleShow(card.title)
         }
     }
+
     const handleSelectChange = (selectedOptions) => {
         setSelectedOptions(selectedOptions)
         console.log("Selected Options:", selectedOptions)
@@ -170,7 +169,6 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
         console.log(filteredBySelectedData)
         setWorkOrders(filteredBySelectedData)
     }
-    console.log({ selectedOptions })
 
     return (
         <>
@@ -247,6 +245,11 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                                 <Select
                                     closeMenuOnSelect={true}
                                     components={animatedComponents}
+                                    // defaultValue={[
+                                    //     colourOptions[4],
+                                    //     colourOptions[5],
+                                    // ]}
+                                    // isMulti
                                     options={options}
                                     onChange={handleSelectChange}
                                     value={selectedOptions}
@@ -273,7 +276,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                                 <tbody>
                                     {workOrders.map((orders, index) => (
                                         <tr
-                                            key={index}
+                                            key={orders.work_order_number}
                                             className={`data-table-row-${getRandomColor(
                                                 orders
                                             )}`}
@@ -319,15 +322,12 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                                             </td>
                                             <td>{orders.pta_truck}</td>
                                             <td>
-                                                {orders.pta_truck_predicted /
-                                                    10 >
-                                                7
-                                                    ? "9.66"
-                                                    : orders.pta_truck_predicted /
-                                                          10 >=
+                                                {orders.pta_truck_predicted/10 > 7
+                                                    ? 9.66
+                                                    : orders.pta_truck_predicted/10 >=
                                                       4
-                                                    ? "7.63"
-                                                    : "4.55"}
+                                                    ? 7.63
+                                                    : 4.55}
                                             </td>
                                             <td>
                                                 {orders["PTA IN HRS"] !== 0
@@ -359,6 +359,11 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                                 <Select
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
+                                    // defaultValue={[
+                                    //     colourOptions[4],
+                                    //     colourOptions[5],
+                                    // ]}
+                                    // isMulti
                                     options={options}
                                     onChange={handleSelectChange}
                                     value={selectedOptions}
@@ -370,8 +375,43 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                             style={{ maxHeight: "400px", overflowY: "auto" }}
                         >
                             <table className="table">
+                                {/* <thead>
+                                    <tr>
+                                        <th>Order Number</th>
+                                        <th>Latitude</th>
+                                        <th>Longitude</th>
+                                        <th>Time Taken</th>
+                                        <th>Time Predicted</th>
+                                        <th>PTA in Hours</th>
+                                    </tr>
+                                </thead> */}
                                 <tbody>
                                     <div>No data available</div>
+                                    {/* {workOrders.map((orders, index) => (
+                                        <tr
+                                            key={orders.work_order_number}
+                                            className={`data-table-row-${getRandomColor(
+                                                orders
+                                            )}`}
+                                        >
+                                            <td>{orders.work_order_number}</td>
+                                            <td>
+                                                {
+                                                    orders.breakdown_location_latitude
+                                                }
+                                            </td>
+                                            <td>
+                                                {
+                                                    orders.breakdown_location_longitude
+                                                }
+                                            </td>
+                                            <td>{orders.pta_truck}</td>
+                                            <td>
+                                                {orders.pta_truck_predicted}
+                                            </td>
+                                            <td>{orders["PTA IN HRS"]}</td>
+                                        </tr>
+                                    ))} */}
                                 </tbody>
                             </table>
                         </Modal.Body>

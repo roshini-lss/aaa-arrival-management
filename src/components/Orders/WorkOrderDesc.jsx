@@ -47,11 +47,11 @@ const OrderDesc = ({ workOrders }) => {
               <h6>{item.State}</h6>
             </div>
             <div className="desc-col">
-              <h3 className="desc-sub">Breakdown_location_latitude</h3>
+              <h3 className="desc-sub">Breakdown Location Latitude</h3>
               <h6>{item.breakdown_location_latitude}</h6>
             </div>
             <div className="desc-col">
-              <h3 className="desc-sub">Mechanic_location_work_data</h3>
+              <h3 className="desc-sub">Mechanic Location Work Data</h3>
               <h6>{item.breakdown_location_longitude}</h6>
             </div>
             <div className="desc-col">
