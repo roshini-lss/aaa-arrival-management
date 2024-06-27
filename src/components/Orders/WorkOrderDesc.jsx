@@ -1,18 +1,37 @@
-import React from "react"
-import "./WorkOrderDesc.css"
+import React from "react";
+import { Toaster, toast } from "sonner";
+import "./WorkOrderDesc.css";
+import { defaultHistory, ordersHistory } from "../../Data/Data"
 
 const OrderDesc = ({ workOrders }) => {
-    const item = workOrders[0]
+  const item = workOrders[0];
+  //   if (item === undefined) {
+  //     toast.warning("Invalid Credentials");
+  //   }
+
+    let history = ordersHistory.filter(
+        (data) => data.workOrderNo === String(item?.work_order_number)
+    )
+    if(history.length === 0) {
+        history = defaultHistory
+    }
+
+    history.sort((a, b) => {
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+        return dateB - dateA
+    })
+    console.log(history)
 
     const stateToPass = {
-      latitude: item.breakdown_location_latitude,
-      longitude: item.breakdown_location_longitude,
-  }
+        latitude: item?.breakdown_location_latitude,
+        longitude: item?.breakdown_location_longitude,
+    }
 
-  const viewMap = () => {
-      const queryString = new URLSearchParams(stateToPass).toString()
-      window.open(`/view-map?${queryString}`, "_blank")
-  }
+    const viewMap = () => {
+        const queryString = new URLSearchParams(stateToPass).toString()
+        window.open(`/view-map?${queryString}`, "_blank")
+    }
 
     return (
         <>
@@ -36,8 +55,9 @@ const OrderDesc = ({ workOrders }) => {
                             <h6>{item.breakdown_location_longitude}</h6>
                         </div>
                         <div className="desc-col">
-                            <h3 className="desc-sub">Trucks Assigned</h3>
-                            <h6>{item.pta_truck}</h6>
+                            <h3 className="desc-sub">Truck Assigned</h3>
+                            {/* <h6>{item.pta_truck}</h6> */}
+                            <h6>{"Yes"}</h6>
                         </div>
                         <div className="desc-col">
                             <h3 className="desc-sub">Truck Predicted</h3>
@@ -55,16 +75,28 @@ const OrderDesc = ({ workOrders }) => {
                             <h3>Previous work order summary</h3>
                         </div>
                         <div>
-                            Flat tire and the issue was closed on time and the
-                            customer is happy.
+                            {history.map((data) => {
+                                return (
+                                    <p
+                                        className={
+                                            data.positive
+                                                ? "positive review"
+                                                : "negative review"
+                                        }
+                                    >
+                                        {`${data.date} - ${data.review}`}{" "}
+                                    </p>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
             ) : (
-                <div className="desc-none">{alert("Not Found, Try valid work order number")}</div>
-            )}
+                <div className="desc-none">
+                </div>
+              )}
         </>
     )
 }
 
-export default OrderDesc
+export default OrderDesc;

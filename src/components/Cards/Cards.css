@@ -1,8 +1,8 @@
 .card-container {
     display: flex;
 }
-.card-container:hover{
-  transform: scale(1.12);
+.card-container:hover {
+    transform: scale(1.12);
 }
 .card-container .category-label {
     display: flex;
@@ -97,4 +97,52 @@
     margin-top: 5px;
     font-weight: bold;
     color: darkmagenta;
+}
+/* .table.table-width{
+  width: 100vw;
+} */
+
+
+.table-view-container {
+  /* border: 1px solid; */
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding:  30px;
+  padding-right: 65px; */
+}
+.data-table-row-red td {
+    /* background-color: #d96a6a !important; */
+}
+
+.data-table-row-green td {
+    /* background-color: #548f54 !important; */
+}
+
+.status-signal {
+    height: 15px;
+    width: 15px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 30%;
+}
+
+.status {
+    display: flex;
+    justify-content: center;
+}
+.filter-area {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-header .btn-close {
+    margin: 0 !important;
+}
+
+.test {
+    width: 50%;
+    margin-left: 30%;
 }

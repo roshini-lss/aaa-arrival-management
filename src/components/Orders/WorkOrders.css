@@ -1,12 +1,12 @@
 .order-component {
-  display: flex;
-  flex-direction: column;
-  /* margin-left: 10%; */
-  margin-top: 5%;
-  padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    /* margin-left: 10%; */
+    margin-top: 5%;
+    padding-bottom: 50px;
 }
 
-.order-main{
+.order-main {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,112 +14,111 @@
 }
 
 .order-container {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 50px;
-  background-color: #a7a7eb;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  /* width: 100%; */
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  max-width: 71%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+    background-color: #a7a7eb;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    /* width: 100%; */
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    max-width: 71%;
 }
 
 .order-container.submitted {
-  transform: translateY(-180px);
-  opacity: 0.7;
-  background-color: transparent;
-  box-shadow: none;
+    transform: translateY(-180px);
+    opacity: 0.7;
+    background-color: transparent;
+    box-shadow: none;
 }
 
 .order-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
 }
 
 .order-input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  border-radius: 20px;
-  color: black;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    border-radius: 20px;
+    color: black;
 }
 
 .order-input:focus {
-  outline: none;
+    outline: none;
 }
 
 .order-search {
-  display: flex;
-  width: 80%;
-  padding-left: 20%;
-  padding-bottom: 30px;
+    display: flex;
+    width: 80%;
+    padding-left: 20%;
+    padding-bottom: 30px;
 }
 
 .order-btn {
-  /* display: flex; */
-  text-align: center;
-  padding: 12px 20px;
-  font-size: 16px;
-  color: #fff;
-  margin-top: 10px;
-  margin-left: 40%;
-  background-color: #ffc0cb;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    /* display: flex; */
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 10px;
+    margin-left: 40%;
+    background-color: #ffc0cb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .order-btn.pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .order-btn:hover {
-  background-color: #ea57a5;
+    background-color: #ea57a5;
 }
 
 .order-error {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
-  align-self: flex-start;
-  margin-left: 10px;
-  padding-bottom: 20px;
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    align-self: flex-start;
+    margin-left: 10px;
+    padding-bottom: 20px;
 }
 
 input.order-input {
-  width: 35rem;
+    width: 35rem;
 }
 
 .input-container {
-  /* border: 1px solid; */
-  width: 100%;
-  display: flex;
+    /* border: 1px solid; */
+    width: 100%;
+    display: flex;
     gap: 13px;
 }
 
-
 .go-container {
-  display: flex;
-  flex-direction: row;
-  gap: 22px;
+    display: flex;
+    flex-direction: row;
+    gap: 22px;
 }
 
 button.go-button {
-  /* border: 1px solid; */
-  padding: 12px 15px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0px 0px 3px #aaa;
-  font-weight: bold;
+    /* border: 1px solid; */
+    padding: 12px 15px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0px 0px 3px #aaa;
+    font-weight: bold;
 }
 
 .go-button:hover {
-  background-color: #f07575;
-  color: white;
+    background-color: #f07575;
+    color: white;
 }

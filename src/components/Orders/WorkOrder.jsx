@@ -20,10 +20,10 @@ const Order = () => {
     }
   };
 
-  const { setSelected } = useContext(SelectedContext)
-    useEffect(() => {
-        setSelected("PTA Health Check")
-    }, [])
+  const { setSelected } = useContext(SelectedContext);
+  useEffect(() => {
+    setSelected("PTA Health Check");
+  }, []);
 
   const handleFilterChange = () => {
     if (orderNo) {
@@ -53,17 +53,18 @@ const Order = () => {
         <div className="order-main">
           <div className={`order-container ${isSubmitted ? "submitted" : ""}`}>
             <div className="go-container">
-            {/* <div className="order-title">Enter Work Order:</div> */}
-            <input
-              className="order-input"
-              type="number"
-              name="workorder"
-              placeholder="Type Work Order Number..."
-              onChange={handleChange}
-              onKeyDown={(event) => event.key === 'Enter' && handleSubmit()}
-            ></input>
-            <button className="go-button" onClick={handleSubmit}><IoSend />
-</button>
+              {/* <div className="order-title">Enter Work Order:</div> */}
+              <input
+                className="order-input"
+                type="number"
+                name="workorder"
+                placeholder="Type Work Order Number..."
+                onChange={handleChange}
+                onKeyDown={(event) => event.key === "Enter" && handleSubmit()}
+              ></input>
+              <button className="go-button" onClick={handleSubmit}>
+                <IoSend />
+              </button>
             </div>
             {error && <div className="order-error">{error}</div>}
             {/* <div className="">
@@ -90,10 +91,11 @@ const Order = () => {
                 className="order-input"
                 placeholder="Type Work Order Number..."
                 onChange={handleChange}
-                onKeyDown={(event) => event.key === 'Enter' && handleSubmit()}
+                onKeyDown={(event) => event.key === "Enter" && handleSubmit()}
               ></input>
-              <button className="go-button" onClick={handleSubmit}><IoSend />
-</button>
+              <button className="go-button" onClick={handleSubmit}>
+                <IoSend />
+              </button>
             </div>
             {/* <div>
               <button

@@ -36,7 +36,7 @@
     border-radius: 2rem;
     gap: 16px;
     grid-template-columns: 11rem auto;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .AppGlassLog {

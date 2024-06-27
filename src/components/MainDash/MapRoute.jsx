@@ -17,7 +17,6 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { FaTimes } from "react-icons/fa";
 import {
   useJsApiLoader,
   GoogleMap,
@@ -28,83 +27,70 @@ import {
 import { MdRefresh } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 const center = { lat: 48.8584, lng: 2.2945 };
-
 function App() {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ["places"],
   });
-
   const [map, setMap] = useState(null);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [predictedDuration, setPredictedDuration] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [origin, setOrigin] = useState("");
+  const [origin, setOrigin] = useState("Pleasanton, CA");
   const [originPosition, setOriginPosition] = useState(null);
   const [truckPosition, setTruckPosition] = useState(null);
-  const [source, setSource] = useState("Pleasanton, CA");
   const [destination, setDestination] = useState(
     "4900 Hopyard Rd STE 100, Pleasanton, California"
   );
-  const location = useLocation()
-
-  const params = new URLSearchParams(location.search)
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
   const state = {
-      dest_latitude: params.get("latitude"),
-      dest_longitude: params.get("longitude"),
-  }
-
-
-
+    dest_latitude: params.get("latitude"),
+    dest_longitude: params.get("longitude"),
+  };
   const calculateRouteIntervalRef = useRef(null); // Ref to hold interval ID
   async function calculateRoute(coord) {
-    console.log({coord})
+    console.log({ coord });
     const destination = {
-        lat: parseFloat(
-            coord?.destination?.lat 
-        ),
-        lng: parseFloat(
-            coord?.destination?.lng 
-        ),
-    }
-
+      lat: parseFloat(coord?.destination?.lat),
+      lng: parseFloat(coord?.destination?.lng),
+    };
     if (!origin || !destination) {
       return;
     }
-
     const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ address: source }, async (results, status) => {
+    geocoder.geocode({ address: origin }, async (results, status) => {
       if (status === "OK" && results[0]) {
         const originLatLng = results[0].geometry.location;
         setOriginPosition(originLatLng);
-
         const directionsService = new window.google.maps.DirectionsService();
         const directionsResults = await directionsService.route({
           origin: originLatLng,
           destination: destination,
           travelMode: window.google.maps.TravelMode.DRIVING,
         });
-
         setDirectionsResponse(directionsResults);
-
         const durationText = directionsResults.routes[0].legs[0].duration.text;
         const minutes = parseInt(durationText); // Extract the number of minutes
         const durationInSeconds = minutes * 60;
-        setDuration(directionsResults.routes[0].legs[0].duration.text);
-
+        console.log(directionsResults.routes[0].legs[0].duration.text);
+        const durationInMinutes = parseDurationToMinutes(durationText);
+        setDuration(`${durationInMinutes} mins`);
         const googleDurationInSeconds =
           directionsResults.routes[0].legs[0].duration.value;
         const predictedDurationInSeconds = googleDurationInSeconds + 60 * 20;
         setPredictedDuration(predictedDurationInSeconds);
-
         setTruckPosition(directionsResults.routes[0].overview_path[0]);
-        animateTruck(directionsResults.routes[0].overview_path, predictedDurationInSeconds);
-
+        animateTruck(
+          directionsResults.routes[0].overview_path,
+          predictedDurationInSeconds
+          // durationInSeconds
+        );
         setDistance(directionsResults.routes[0].legs[0].distance.text);
         onOpen();
-
+        // Check if destination reached
         const legs = directionsResults.routes[0].legs;
         if (legs && legs.length > 0 && legs[0].end_address === destination) {
           clearInterval(calculateRouteIntervalRef.current);
@@ -114,41 +100,41 @@ function App() {
       }
     });
   }
+  function parseDurationToMinutes(durationText) {
+    let totalMinutes = 0;
+    const hoursMatch = durationText.match(/(\d+)\s*hour/);
+    const minutesMatch = durationText.match(/(\d+)\s*min/);
+
+    if (hoursMatch) {
+      totalMinutes += parseInt(hoursMatch[1]) * 60;
+    }
+    if (minutesMatch) {
+      totalMinutes += parseInt(minutesMatch[1]);
+    }
+
+    return totalMinutes;
+  }
 
   useEffect(() => {
-    console.log(state.dest_latitude != null, state.dest_longitude != null)
-    if (
-        isLoaded &&
-        state.dest_latitude != null &&
-        state.dest_longitude != null
-    )
-        calculateRoute({
-            destination: {
-                lat: state.dest_latitude,
-                lng: state.dest_longitude,
-            },
-        })
-}, [state.dest_latitude, state.dest_longitude, isLoaded])
-
-
-//   useEffect(() => {
-//     if (isLoaded && destination) {
-//       calculateRoute();
-//     }
-//   }, [isLoaded, destination]);
+    console.log(state.dest_latitude != null, state.dest_longitude != null);
+    if (isLoaded && state.dest_latitude != null && state.dest_longitude != null)
+      calculateRoute({
+        destination: {
+          lat: state.dest_latitude,
+          lng: state.dest_longitude,
+        },
+      });
+  }, [state.dest_latitude, state.dest_longitude, isLoaded]);
   function clearRoute() {
     calculateRoute();
   }
-
   function formatDuration(durationInSeconds) {
-    const hours = Math.floor(durationInSeconds / 3600);
-    const minutes = Math.floor((durationInSeconds % 3600) / 60);
-    return `${hours > 0 ? `${hours} hours ` : ""}${minutes} mins`;
+    const minutes = Math.floor(durationInSeconds / 60);
+    return `${minutes} mins`;
   }
-
   function animateTruck(path, durationInSeconds) {
     const totalSteps = path.length;
-    const intervalTime = 5000;
+    const intervalTime = 15000;
     let currentStep = 0;
     const interval = setInterval(() => {
       if (currentStep < totalSteps) {
@@ -163,13 +149,11 @@ function App() {
       }
     }, intervalTime);
   }
-
   function interpolatePosition(path, progress) {
     const totalDistance =
       window.google.maps.geometry.spherical.computeLength(path);
     const targetDistance = totalDistance * progress;
     let accumulatedDistance = 0;
-
     for (let i = 1; i < path.length; i++) {
       const segmentDistance =
         window.google.maps.geometry.spherical.computeDistanceBetween(
@@ -189,7 +173,6 @@ function App() {
     }
     return path[path.length - 1];
   }
-
   function updateOriginInput(position) {
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ location: position }, (results, status) => {
@@ -198,11 +181,9 @@ function App() {
       }
     });
   }
-
   if (!isLoaded) {
     return <SkeletonText />;
   }
-
   return (
     <Flex
       position="relative"
@@ -250,7 +231,13 @@ function App() {
         <HStack spacing={2} justifyContent="space-between">
           <Box flexGrow={1}>
             <Autocomplete>
-              <Input type="text" placeholder="Origin" value="Pleasanton, CA" disabled={true} title="Origin"/>
+              <Input
+                type="text"
+                placeholder="Origin"
+                value="Pleasanton, CA"
+                disabled={true}
+                title="Origin"
+              />
             </Autocomplete>
           </Box>
           <Box flexGrow={1}>
@@ -265,17 +252,24 @@ function App() {
               />
             </Autocomplete>
           </Box>
-          <ButtonGroup>
-            <Button colorScheme="pink" type="submit" onClick={calculateRoute} isDisabled={true} title="This feature will be enabled in the future">
+          {/* <ButtonGroup>
+            <Button
+              colorScheme="pink"
+              type="submit"
+              onClick={calculateRoute}
+              isDisabled={true}
+              title="This feature will be enabled in the future"
+            >
               Calculate Time
             </Button>
             <IconButton
               aria-label="center back"
               icon={<MdRefresh />}
               onClick={clearRoute}
-              isDisabled={true} title="This feature will be enabled in the future"
+              isDisabled={true}
+              title="This feature will be enabled in the future"
             />
-          </ButtonGroup>
+          </ButtonGroup> */}
         </HStack>
         {distance && (
           <HStack spacing={4} mt={4} justifyContent="space-between">
@@ -311,6 +305,7 @@ function App() {
           </HStack>
         </>
       </Box>
+      {/* {!autoRefresh && ( */}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -323,8 +318,8 @@ function App() {
           </ModalBody>
         </ModalContent>
       </Modal>
+      {/* )} */}
     </Flex>
   );
 }
-
 export default App;

@@ -6,14 +6,17 @@ import "bootstrap/dist/css/bootstrap.css"
 import { SelectedProvider } from "./contexts/SelectedContext"
 import { ChakraProvider, theme } from "@chakra-ui/react"
 import { UserProvider } from "./contexts/UserContext"
+import { RegionProvider } from "./contexts/RegionContext"
 
 ReactDOM.render(
     <Router>
         <UserProvider>
             <SelectedProvider>
-                <ChakraProvider theme={theme}>
-                    <App />
-                </ChakraProvider>
+                <RegionProvider>
+                    <ChakraProvider theme={theme}>
+                        <App />
+                    </ChakraProvider>
+                </RegionProvider>
             </SelectedProvider>
         </UserProvider>
     </Router>,
