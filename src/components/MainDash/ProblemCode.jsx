@@ -295,7 +295,7 @@ const getData = (data) => {
              <Modal.Title>Chart</Modal.Title>
          </Modal.Header>
          <Modal.Body className="modal-body"
-             style={{ maxHeight: "400px", overflowY: "auto" }}>
+             style={{ overflowY: "auto" }}>
                  {getValueData().map((data, index) => (
                     <div className="pie-container">
                         <div className="label"><b>{data.label}</b></div>

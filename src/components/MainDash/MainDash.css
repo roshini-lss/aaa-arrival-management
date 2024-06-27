@@ -100,14 +100,15 @@ button.view-chart-button {
 
 .pie-container {
     /* border: 1px solid; */
-    height: 16rem;
+    /* height: 16rem; */
     /* display: flex; */
     width: 47%;
     display: flex;
     /* flex-wrap: wrap; */
     flex-direction: column;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
+    margin-top: -12px;
 }
 .pie-chart {
     height: 100%;
