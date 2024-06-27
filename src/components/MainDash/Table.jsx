@@ -50,7 +50,7 @@ const Table = () => {
                     backgroundColor:
                       orders["PTA IN HRS"] === 0
                         ? "gray"
-                        : orders.pta_truck_predicted / 10 < 4
+                        : orders.pta_truck_predicted / 10 < 5
                         ? "red"
                         : orders.pta_truck_predicted / 10 <= 7
                         ? "yellow"
@@ -65,7 +65,7 @@ const Table = () => {
               <td>
                 {orders.pta_truck_predicted / 10 > 7
                   ? 9.66
-                  : orders.pta_truck_predicted / 10 >= 4
+                  : orders.pta_truck_predicted / 10 >= 5
                   ? 7.63
                   : 4.55}
               </td>
