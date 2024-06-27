@@ -55,7 +55,7 @@ const Table = () => {
                                                 ? "gray"
                                                 : orders.pta_truck_predicted /
                                                       10 <
-                                                  4
+                                                  5
                                                 ? "red"
                                                 : orders.pta_truck_predicted /
                                                       10 <=
@@ -74,7 +74,7 @@ const Table = () => {
                             <td>
                                 {orders.pta_truck_predicted / 10 > 7
                                     ? 9.66
-                                    : orders.pta_truck_predicted / 10 >= 4
+                                    : orders.pta_truck_predicted / 10 >= 5
                                     ? 7.63
                                     : 4.55}
                             </td>
