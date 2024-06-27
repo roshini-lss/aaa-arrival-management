@@ -40,12 +40,20 @@ function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [origin, setOrigin] = useState("Pleasanton, CA");
   const [originPosition, setOriginPosition] = useState(null);
-  const [truckPosition, setTruckPosition] = useState(null);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const [truckPosition, setTruckPosition] = useState([]);
+  const truckPos = params.get("truck_location");
+  useEffect(() => {
+    const truckPosArr = truckPos?.split("'");
+    setTruckPosition({
+      lat: Number(truckPosArr[0]),
+      lng: Number(truckPosArr[1] || truckPosArr[0]),
+    });
+  }, [truckPos]);
   const [destination, setDestination] = useState(
     "4900 Hopyard Rd STE 100, Pleasanton, California"
   );
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
   const state = {
     dest_latitude: params.get("latitude"),
     dest_longitude: params.get("longitude"),
@@ -83,7 +91,9 @@ function App() {
           directionsResults.routes[0].legs[0].duration.value;
         const predictedDurationInSeconds = googleDurationInSeconds + 60 * 20;
         setPredictedDuration(predictedDurationInSeconds);
-        setTruckPosition(directionsResults.routes[0].overview_path[0]);
+        // TODO: Commented it to set the truck's location
+        // setTruckPosition(directionsResults.routes[0].overview_path[0]);
+
         // animateTruck(
         //   directionsResults.routes[0].overview_path,
         //   predictedDurationInSeconds
@@ -209,9 +219,9 @@ function App() {
           {directionsResponse && (
             <DirectionsRenderer directions={directionsResponse} />
           )}
-          {truckPosition && (
+          {truckPosition.lat && truckPosition.lng && (
             <Marker
-              position={truckPosition}
+              position={{ lat: truckPosition.lat, lng: truckPosition.lng }}
               icon={{
                 url: "https://img.icons8.com/ios-filled/50/000000/truck.png",
                 scaledSize: new window.google.maps.Size(50, 50),

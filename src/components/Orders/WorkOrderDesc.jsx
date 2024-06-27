@@ -27,6 +27,7 @@ const OrderDesc = ({ workOrders }) => {
     latitude: item?.breakdown_location_latitude,
     longitude: item?.breakdown_location_longitude,
     destinations: item?.breakdown_location_address,
+    truck_location: item?.mechanic_location_work_data,
   };
 
   const viewMap = () => {
