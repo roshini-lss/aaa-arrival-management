@@ -26,6 +26,7 @@ const OrderDesc = ({ workOrders }) => {
   const stateToPass = {
     latitude: item?.breakdown_location_latitude,
     longitude: item?.breakdown_location_longitude,
+    destinations: item?.breakdown_location_address,
   };
 
   const viewMap = () => {
@@ -53,6 +54,10 @@ const OrderDesc = ({ workOrders }) => {
             <div className="desc-col">
               <h3 className="desc-sub">Mechanic Location Work Data</h3>
               <h6>{item.breakdown_location_longitude}</h6>
+            </div>
+            <div className="desc-col">
+              <h3 className="desc-sub">Mechanic Location Address</h3>
+              <h6>{item.mechanic_location_address}</h6>
             </div>
             <div className="desc-col">
               <h3 className="desc-sub">Truck Assigned</h3>

@@ -49,6 +49,7 @@ function App() {
   const state = {
     dest_latitude: params.get("latitude"),
     dest_longitude: params.get("longitude"),
+    dest_location: params.get("destinations"),
   };
   const calculateRouteIntervalRef = useRef(null); // Ref to hold interval ID
   async function calculateRoute(coord) {
@@ -246,7 +247,7 @@ function App() {
                 type="text"
                 placeholder="Destination"
                 title="Destination"
-                value={`${state.dest_latitude},${state.dest_longitude}`}
+                value={`${state?.dest_location}`}
                 disabled={true}
                 onChange={(e) => setDestination(e.target.value)}
               />
