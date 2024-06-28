@@ -40,42 +40,47 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {state?.map((orders, index) => (
-            <tr key={orders.work_order_number} className={`data-table-row`}>
-              <td>{orders.work_order_number}</td>
-              <td>
-                <div
-                  className="status-signal"
-                  style={{
-                    backgroundColor:
-                      orders["PTA IN HRS"] === 0
+          {state?.map((orders, index) => {
+            const ptaInMins =
+              orders["PTA IN HRS"] * 60 + Math.floor(Math.random() * 15);
+            const isUnassigned = orders["PTA IN HRS"] === 0;
+
+            return (
+              <tr key={orders.work_order_number} className={`data-table-row`}>
+                <td>{orders.work_order_number}</td>
+                <td>
+                  <div
+                    className="status-signal"
+                    style={{
+                      backgroundColor: isUnassigned
                         ? "gray"
                         : orders.pta_truck_predicted / 10 < 5
                         ? "red"
                         : orders.pta_truck_predicted / 10 <= 7
                         ? "yellow"
                         : "green",
-                  }}
-                ></div>
-              </td>
-              <td>{orders["PTA IN HRS"] === 0 ? <>U</> : <>A</>}</td>
-              <td>{orders.breakdown_location_address}</td>
-              <td>{orders.mechanic_location_address}</td>
-              <td>{orders.pta_truck}</td>
-              <td>
-                {orders.pta_truck_predicted / 10 > 7
-                  ? 9.66
-                  : orders.pta_truck_predicted / 10 >= 5
-                  ? 7.63
-                  : 4.55}
-              </td>
-              <td>
-                {orders["PTA IN HRS"] !== 0
-                  ? orders["PTA IN HRS"] * 60 + Math.floor(Math.random() * 15)
-                  : 0}
-              </td>
-            </tr>
-          ))}
+                    }}
+                  ></div>
+                </td>
+                <td>{orders["PTA IN HRS"] === 0 ? <>U</> : <>A</>}</td>
+                <td>{orders.breakdown_location_address}</td>
+                <td>{isUnassigned ? "-" : orders.mechanic_location_address}</td>
+                <td>
+                  {isUnassigned ? "-" : parseFloat(ptaInMins / 60).toFixed(2)}
+                </td>
+                <td>
+                  {isUnassigned
+                    ? "-"
+                    : orders.pta_truck_predicted / 10 > 7
+                    ? 9.66
+                    : orders.pta_truck_predicted / 10 >= 5
+                    ? 7.63
+                    : 4.55}
+                </td>
+                <td>{isUnassigned ? "-" : ptaInMins}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
