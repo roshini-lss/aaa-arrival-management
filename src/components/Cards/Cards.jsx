@@ -37,7 +37,7 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
 
   const options = [
     { value: "None", label: "None" },
-    { value: "High", label: "High (Green: Confidence - 7-9)" },
+    { value: "High", label: "High (Green: Confidence - 7-10)" },
     { value: "Moderate", label: "Moderate (Yellow: Confidence - 4-7)" },
     { value: "Low", label: "Low (Red: Confidence - 0-4)" },
     { value: "Unassigned", label: "Unassigned" },
