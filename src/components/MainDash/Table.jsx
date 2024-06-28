@@ -34,9 +34,9 @@ const Table = () => {
             <th>Assigned/ Unassigned</th>
             <th>Breakdown Location Address</th>
             <th>Mechanic Location Address</th>
-            <th>Time Taken</th>
-            <th>Time Predicted</th>
+            {/* <th>Time Taken</th> */}
             <th>PTA in Mins</th>
+            <th>Confidence score</th>
           </tr>
         </thead>
         <tbody>
@@ -65,9 +65,10 @@ const Table = () => {
                 <td>{orders["PTA IN HRS"] === 0 ? <>U</> : <>A</>}</td>
                 <td>{orders.breakdown_location_address}</td>
                 <td>{isUnassigned ? "-" : orders.mechanic_location_address}</td>
-                <td>
+                {/* <td>
                   {isUnassigned ? "-" : parseFloat(ptaInMins / 60).toFixed(2)}
-                </td>
+                </td> */}
+                <td>{isUnassigned ? "-" : ptaInMins}</td>
                 <td>
                   {isUnassigned
                     ? "-"
@@ -77,7 +78,6 @@ const Table = () => {
                     ? 7.63
                     : 4.55}
                 </td>
-                <td>{isUnassigned ? "-" : ptaInMins}</td>
               </tr>
             );
           })}

@@ -37,9 +37,9 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
 
   const options = [
     { value: "None", label: "None" },
-    { value: "High", label: "High" },
-    { value: "Moderate", label: "Moderate" },
-    { value: "Low", label: "Low" },
+    { value: "High", label: "High (Green: Confidence - 7-9)" },
+    { value: "Moderate", label: "Moderate (Yellow: Confidence - 4-7)" },
+    { value: "Low", label: "Low (Red: Confidence - 0-4)" },
     { value: "Unassigned", label: "Unassigned" },
   ];
 
@@ -223,7 +223,8 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
           <td className="ellipsis" title={orders.mechanic_location_address}>
             {isUnassigned ? "-" : orders.mechanic_location_address}
           </td>
-          <td>{isUnassigned ? "-" : parseFloat(ptaInMins / 60).toFixed(2)}</td>
+          {/* <td>{isUnassigned ? "-" : parseFloat(ptaInMins / 60).toFixed(2)}</td> */}
+          <td>{isUnassigned ? "-" : ptaInMins}</td>
           <td>
             {isUnassigned
               ? "-"
@@ -233,7 +234,6 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
               ? 7.63
               : 4.55}
           </td>
-          <td>{isUnassigned ? "-" : ptaInMins}</td>
         </tr>
       );
     });
@@ -299,7 +299,9 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
         <>
           <Modal show={isOpen} onHide={handleClose} centered size="lg">
             <Modal.Header closeButton className="filter-area">
-              <Modal.Title>Risk</Modal.Title>
+              <Modal.Title style={{ textWrap: "nowrap" }}>
+                Open work orders
+              </Modal.Title>
               <div className="test">
                 <Select
                   closeMenuOnSelect={true}
@@ -321,11 +323,15 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
                     <th>Order Number</th>
                     <th>Status</th>
                     <th>Assigned/ Unassigned</th>
-                    <th>Breakdown Location Address</th>
-                    <th>Mechanic Location Address</th>
-                    <th>Time Taken</th>
-                    <th>Time Predicted</th>
-                    <th>PTA in Mins</th>
+                    <th style={{ width: "160px" }}>
+                      Breakdown Location Address
+                    </th>
+                    <th style={{ width: "160px" }}>
+                      Mechanic Location Address
+                    </th>
+                    {/* <th>Time Taken</th> */}
+                    <th style={{ width: "70px" }}>PTA in Mins</th>
+                    <th>Confidence score</th>
                   </tr>
                 </thead>
                 <tbody>{renderModalBody()}</tbody>
