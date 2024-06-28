@@ -193,6 +193,9 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
 
   const renderModalBody = () => {
     return workOrders.map((orders, index) => {
+      const ptaInMins =
+        orders["PTA IN HRS"] * 60 + Math.floor(Math.random() * 15);
+      const isUnassigned = orders["PTA IN HRS"] === 0;
       return (
         <tr
           key={orders.work_order_number}
@@ -203,35 +206,34 @@ const Cards = ({ card, probCode, titles, img, unassigned, color }) => {
             <div
               className="status-signal"
               style={{
-                backgroundColor:
-                  orders["PTA IN HRS"] === 0
-                    ? "gray"
-                    : orders.pta_truck_predicted / 10 < 5
-                    ? "red"
-                    : orders.pta_truck_predicted / 10 <= 7
-                    ? "yellow"
-                    : "green",
+                backgroundColor: isUnassigned
+                  ? "gray"
+                  : orders.pta_truck_predicted / 10 < 5
+                  ? "red"
+                  : orders.pta_truck_predicted / 10 <= 7
+                  ? "yellow"
+                  : "green",
               }}
             ></div>
           </td>
-          <td className="status">
-            {orders["PTA IN HRS"] === 0 ? <>U</> : <>A</>}
+          <td className="status">{isUnassigned ? <>U</> : <>A</>}</td>
+          <td className="ellipsis" title={orders.breakdown_location_address}>
+            {orders.breakdown_location_address}
           </td>
-          <td className="ellipsis" title={orders.breakdown_location_address}>{orders.breakdown_location_address}</td>
-          <td className="ellipsis" title={orders.mechanic_location_address}>{orders.mechanic_location_address}</td>
-          <td>{orders.pta_truck}</td>
+          <td className="ellipsis" title={orders.mechanic_location_address}>
+            {isUnassigned ? "-" : orders.mechanic_location_address}
+          </td>
+          <td>{isUnassigned ? "-" : parseFloat(ptaInMins / 60).toFixed(2)}</td>
           <td>
-            {orders.pta_truck_predicted / 10 > 7
+            {isUnassigned
+              ? "-"
+              : orders.pta_truck_predicted / 10 > 7
               ? 9.66
               : orders.pta_truck_predicted / 10 >= 5
               ? 7.63
               : 4.55}
           </td>
-          <td>
-            {orders["PTA IN HRS"] !== 0
-              ? orders["PTA IN HRS"] * 60 + Math.floor(Math.random() * 15)
-              : 0}
-          </td>
+          <td>{isUnassigned ? "-" : ptaInMins}</td>
         </tr>
       );
     });
