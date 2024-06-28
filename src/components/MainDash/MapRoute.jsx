@@ -91,14 +91,23 @@ function App() {
           directionsResults.routes[0].legs[0].duration.value;
         const predictedDurationInSeconds = googleDurationInSeconds + 60 * 20;
         setPredictedDuration(predictedDurationInSeconds);
-        // TODO: Commented it to set the truck's location
-        // setTruckPosition(directionsResults.routes[0].overview_path[0]);
 
-        // animateTruck(
-        //   directionsResults.routes[0].overview_path,
-        //   predictedDurationInSeconds
-        //   // durationInSeconds
-        // );
+        const truckDirectionsResults = await directionsService.route({
+          origin: truckPosition,
+          destination: destination,
+          travelMode: window.google.maps.TravelMode.DRIVING,
+        });
+
+        // TODO: Commented it to set the truck's location
+        const truckPredictedDuration =
+          truckDirectionsResults.routes[0].legs[0].duration.value + 60 * 20;
+        setTruckPosition(truckDirectionsResults.routes[0].overview_path[0]);
+        animateTruck(
+          truckDirectionsResults?.routes?.[0]?.overview_path ||
+            directionsResults?.routes?.[0]?.overview_path,
+          truckPredictedDuration
+          // durationInSeconds
+        );
         setDistance(directionsResults.routes[0].legs[0].distance.text);
         onOpen();
         // Check if destination reached
@@ -219,9 +228,18 @@ function App() {
           {directionsResponse && (
             <DirectionsRenderer directions={directionsResponse} />
           )}
-          {truckPosition.lat && truckPosition.lng && (
+          {/* {truckPosition.lat && truckPosition.lng && (
             <Marker
               position={{ lat: truckPosition.lat, lng: truckPosition.lng }}
+              icon={{
+                url: "https://img.icons8.com/ios-filled/50/000000/truck.png",
+                scaledSize: new window.google.maps.Size(50, 50),
+              }}
+            />
+          )} */}
+          {truckPosition && (
+            <Marker
+              position={truckPosition}
               icon={{
                 url: "https://img.icons8.com/ios-filled/50/000000/truck.png",
                 scaledSize: new window.google.maps.Size(50, 50),
