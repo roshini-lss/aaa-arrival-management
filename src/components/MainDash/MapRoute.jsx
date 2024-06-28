@@ -154,7 +154,7 @@ function App() {
   }
   function animateTruck(path, durationInSeconds) {
     const totalSteps = path.length;
-    const intervalTime = 15000;
+    const intervalTime = 10000;
     let currentStep = 0;
     const interval = setInterval(() => {
       if (currentStep < totalSteps) {
@@ -163,7 +163,7 @@ function App() {
         setTruckPosition(nextPosition);
         setOriginPosition(nextPosition);
         updateOriginInput(nextPosition);
-        currentStep += 25;
+        currentStep += 5;
       } else {
         clearInterval(interval);
       }
