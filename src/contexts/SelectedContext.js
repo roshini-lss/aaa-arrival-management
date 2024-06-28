@@ -1,4 +1,3 @@
-// src/contexts/SelectedContext.js
 import React, { createContext, useState } from "react"
 
 export const SelectedContext = createContext()

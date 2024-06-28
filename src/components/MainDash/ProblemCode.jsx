@@ -8,7 +8,12 @@ import { Regiondata, byProblemCodeDatas } from "../../Data/Data";
 import { getDriveImageUrl } from "../../utils/url-utils";
 import { driveImageIds } from "../../constants/static-assets";
 import { RegionContext } from "../../contexts/RegionContext";
+import Modal from "react-bootstrap/Modal"
+import { PieChart } from "@mui/x-charts";
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
+ChartJS.register(ArcElement, Tooltip, Legend);
 const ProblemCode = () => {
   const listData = [
     "Battery_Jump",
@@ -24,6 +29,7 @@ const ProblemCode = () => {
   const region = useParams();
   const location = useLocation();
   const regions = region?.val?.toUpperCase();
+  const [isOpen, setIsOpen] = useState(false)
   const batteryJump = (service) => {
     const details = {
       totalNumberOfOrders: allData.filter(
@@ -53,6 +59,8 @@ const ProblemCode = () => {
     return details;
   };
 
+//   console.log({details})
+
   const regionDataToPass = Regiondata.filter((region) => {
     return region.title === regionNav;
   });
@@ -60,6 +68,89 @@ const ProblemCode = () => {
   listData.forEach((item) => {
     serviceData[item] = batteryJump(item);
   });
+
+  console.log({byProblemCodeDatas})
+
+
+  const getValueData = ()=>{
+    const woData = [];
+    const assignedPTAData = [];
+    const delayData = [];
+    const unassignedData = [];
+const dataSet =problemCode?byProblemCodeDatas: regionDataToPass?.[0]?.problemCode
+    for (let index = 0; index < dataSet.length; index++) {
+        const problemCodeData = dataSet[index];
+        woData.push(problemCodeData.totalWO || problemCodeData?.datas?.totalWO?.length || 0);
+        assignedPTAData.push(problemCodeData.assingedPTA || problemCodeData?.datas?.assingedPTA?.length || 0);
+        delayData.push(problemCodeData.delays || problemCodeData?.datas?.delays?.length || 0);
+        unassignedData.push(problemCodeData.unassigned || problemCodeData?.datas?.unassigned || 0);
+        
+    }
+    return ([{
+        label: "Total Number of WO",
+        data: woData
+      },
+      {
+        label: "Assigned PTA",
+        data: assignedPTAData
+      },
+      {
+        label: "Delays",
+        data: delayData
+      },
+      {
+        label: "Unassigned",
+        data:unassignedData
+      }
+    ])
+  }
+const getData = (data) => {
+    return {
+    labels: byProblemCodeDatas.map(problemCode=>problemCode.name),
+    datasets: [
+      {
+        label: data.label,
+        data: data.data,
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(255, 99, 71, 0.2)',
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)',
+            'rgba(255, 99, 71, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  }};
+  
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        labels:{
+            boxWidth: 0
+        },
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+  };
+  
 
   const cardsData = [
     {
@@ -155,9 +246,22 @@ const ProblemCode = () => {
     location.pathname === "/by-region" ? { left: "20px" } : { left: "unset" };
   const problemCode = location.pathname === "/by-problem-code";
 
+  const handleViewChart = () => {
+    setIsOpen(!isOpen)
+  }
+
   return (
+    <>
     <div className="MainDash-Component">
-      <div className="main-view-title">VIEW BY - PROBLEM CODE</div>
+        <div className="title-chart-container">
+     
+      <div className="view-chart">
+        <button className="view-chart-button" onClick={handleViewChart}>View <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pie-chart-fill" viewBox="0 0 16 16">
+  <path d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015"/>
+</svg></button>
+      </div>
+       <div className="main-view-title">VIEW BY - PROBLEM CODE</div>
+      </div>
       {problemCode ? (
         <div className="MainDash" style={style}>
           {byProblemCodeDatas.map((card, id) => {
@@ -181,6 +285,31 @@ const ProblemCode = () => {
         </div>
       )}
     </div>
+    {isOpen ? (
+         <Modal
+         show={isOpen}
+         onHide={handleViewChart}
+         size="lg"
+     >
+         <Modal.Header closeButton className="filter-area">
+             <Modal.Title>Chart</Modal.Title>
+         </Modal.Header>
+         <Modal.Body className="modal-body"
+             style={{ overflowY: "auto" }}>
+                 {getValueData().map((data, index) => (
+                    <div className="pie-container">
+                        <div className="label"><b>{data.label}</b></div>
+                        <div className="pie-chart">
+          <Pie key={index} data={getData(data)} options={options} />
+          </div>
+          </div>
+        ))}
+                 {/* <Pie data={data} options={options} />; */}
+         </Modal.Body>
+     </Modal>
+    ) : null}
+    </>
+
   );
 };
 export default ProblemCode;
