@@ -69,3 +69,9 @@
 body {
   color: black;
 }
+
+/* An issue with chakra UI - need this to fix the input placeholder visibility issue - https://github.com/chakra-ui/chakra-ui/issues/949 */
+input::placeholder{
+  opacity: 1;
+  color: gray
+}
